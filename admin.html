@@ -120,9 +120,12 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      text-decoration: none;
     }
     .btn-transfer { background: var(--gold); color: var(--bg); }
     .btn-transfer:hover { background: var(--gold-hover); }
+    .btn-file { background: #1e2d4a; color: #ffffff; }
+    .btn-file:hover { background: #2a3d63; }
 
     .error-msg { text-align: center; color: var(--danger); font-weight: 700; padding: 30px; font-size: 16px; }
     .loader { text-align: center; color: var(--text-muted); padding: 30px; }
@@ -188,8 +191,8 @@
 </div>
 
 <script>
-  // الرابط الجديد المحدث للسيرفر
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkKlb0erWWgXWhvy52_eUYhG5aqj7b5CF2l5-m4M20J-6TzQDHO6_H75WB4pALe1XG/exec";
+  // الرابط المحدث للسيرفر
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzSrebmRTAxc1-AKXbBJ0EF2GsH8W-Fe5aGyQH45oZw5EAKI5PdjEG8B-XZP90eFrD/exec";
 
   let allRequestsData = [];
 
@@ -237,6 +240,11 @@
     data.forEach(item => {
       const card = document.createElement('div');
       card.className = 'request-card';
+
+      const fileBtn = item.fileUrl && item.fileUrl.startsWith('http') 
+        ? `<a href="${item.fileUrl}" target="_blank" class="btn-action btn-file"><i class="fa-solid fa-paperclip"></i> عرض المرفق</a>`
+        : '';
+
       card.innerHTML = `
         <div class="request-header">
           <span class="app-id"><i class="fa-solid fa-folder-open"></i> ${item.appId}</span>
@@ -251,8 +259,9 @@
           <div><strong>الدرجة:</strong> ${item.urgency || 'عادي'}</div>
         </div>
         <div class="card-actions">
+          ${fileBtn}
           <button class="btn-action btn-transfer" onclick="transferToGovPortal('${item.appId}')">
-            <i class="fa-solid fa-paper-plane"></i> 🚀 ترحيل للبوابة الحكومية
+            <i class="fa-solid fa-paper-plane"></i> 🚀 ترحيل للبوابة
           </button>
         </div>
       `;
