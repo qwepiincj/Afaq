@@ -3,541 +3,289 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة إدارة المعاملات - مكتب آفاق للخدمات القانونية</title>
-  
-  <link rel="icon" type="image/jpeg" href="IMG_3679.jpeg">
-
-  <!-- Google Fonts & FontAwesome -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <title>لوحة التحكم - إدارة الطلبات | مكتب آفاق</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+  
   <style>
     :root {
-      --bg-dark: #091222;
-      --card-bg: #111e38;
-      --card-inner: #192a4a;
-      --gold-main: #c5a059;
+      --bg: #091222;
+      --card-bg: #111d33;
+      --card-border: #1e2d4a;
+      --gold: #c5a059;
       --gold-hover: #e5be75;
-      --text-white: #f8fafc;
+      --text: #ffffff;
       --text-muted: #94a3b8;
-      --border-color: #233558;
+      --danger: #ef4444;
       --success: #10b981;
       --warning: #f59e0b;
-      --info: #3b82f6;
-      --danger: #ef4444;
       --radius: 14px;
     }
 
-    * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
-    body { background-color: var(--bg-dark); color: var(--text-white); padding: 20px 12px; direction: rtl; min-height: 100vh; }
+    * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
+    body { background-color: var(--bg); color: var(--text); padding: 20px; direction: rtl; }
+    .container { max-width: 900px; margin: 0 auto; }
 
-    .admin-wrapper { max-width: 900px; margin: 0 auto; }
-
-    /* Top Brand Header */
-    .admin-header {
-      background: linear-gradient(135deg, #111e38 0%, #1d3557 100%);
-      padding: 22px 20px;
+    /* Header */
+    .header-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      border: 1px solid var(--border-color);
-      border-bottom: 3px solid var(--gold-main);
+      padding: 25px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      border-bottom: 3px solid var(--gold);
     }
-
-    .admin-title { display: flex; align-items: center; gap: 12px; }
-    .admin-title i { font-size: 26px; color: var(--gold-main); }
-    .admin-title h1 { font-size: 20px; font-weight: 800; }
-
+    .header-title h2 { font-size: 22px; color: var(--text); font-weight: 800; display: flex; align-items: center; gap: 10px; }
+    .header-title p { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
     .btn-refresh {
-      background: rgba(197, 160, 89, 0.15);
-      color: var(--gold-main);
-      border: 1px solid var(--gold-main);
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
       padding: 10px 18px;
-      border-radius: 10px;
+      border-radius: 8px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.3s ease;
+      transition: 0.2s;
     }
-    .btn-refresh:hover { background: var(--gold-main); color: var(--bg-dark); }
+    .btn-refresh:hover { background: var(--gold); color: var(--bg); }
 
-    /* Stats Ribbon */
-    .stats-ribbon {
+    /* Counters */
+    .counters-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
       margin-bottom: 20px;
     }
-    .stat-box {
+    .counter-card {
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 14px;
-      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 20px;
       text-align: center;
     }
-    .stat-number { font-size: 22px; font-weight: 800; color: var(--gold-main); }
-    .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+    .counter-value { font-size: 26px; font-weight: 800; color: var(--gold); margin-bottom: 5px; }
+    .counter-label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
 
-    /* Filter & Search Bar */
-    .search-filter-bar {
-      background: var(--card-bg);
-      padding: 15px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border-color);
-      margin-bottom: 20px;
+    /* Filters */
+    .filter-bar {
       display: flex;
       gap: 12px;
-      flex-wrap: wrap;
+      margin-bottom: 20px;
     }
-    .search-input-box { flex: 2; min-width: 200px; position: relative; }
-    .search-input-box i { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-    
-    .form-control {
-      width: 100%;
-      padding: 12px 40px 12px 14px;
-      background-color: var(--card-inner);
-      border: 1px solid var(--border-color);
+    .search-input, .select-filter {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 12px 16px;
       border-radius: 10px;
-      color: #fff;
       font-size: 14px;
       outline: none;
     }
-    .form-control:focus { border-color: var(--gold-main); }
-    select.form-control { padding-right: 14px; cursor: pointer; }
+    .search-input { flex: 1; }
 
-    /* Request Cards */
-    .cards-container { display: flex; flex-direction: column; gap: 16px; }
-
+    /* List & Cards */
+    .requests-list { display: flex; flex-direction: column; gap: 15px; }
     .request-card {
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 22px;
-      position: relative;
-      border-right: 6px solid var(--gold-main);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s ease;
+      padding: 20px;
+      border-right: 5px solid var(--gold);
     }
-    .request-card:hover { transform: translateY(-2px); }
-
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 14px;
-    }
-    .client-name { font-size: 18px; font-weight: 800; color: #fff; }
+    .request-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .app-id { font-weight: 800; color: var(--gold); font-size: 16px; }
+    .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    .status-new { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
     
-    .status-pill {
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .status-review { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
-    .status-progress { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }
-    .status-done { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 14px; color: #cbd5e1; margin-bottom: 15px; }
+    .info-grid div strong { color: var(--text-muted); }
 
-    .card-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px 18px;
-      font-size: 13.5px;
-      margin-bottom: 15px;
-    }
-    @media (max-width: 600px) { .card-grid { grid-template-columns: 1fr; } }
-
-    .info-row { display: flex; gap: 6px; color: #e2e8f0; }
-    .info-row strong { color: var(--gold-main); min-width: 105px; font-weight: 700; }
-    .info-row span { color: #f1f5f9; word-break: break-word; }
-
-    .lawyer-notes-card {
-      background: var(--card-inner);
-      padding: 12px 15px;
-      border-radius: 10px;
-      font-size: 13px;
-      border-right: 3px solid var(--info);
-      margin-bottom: 16px;
-      color: #cbd5e1;
-    }
-
-    .card-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .card-actions { display: flex; gap: 10px; margin-top: 15px; border-top: 1px solid var(--card-border); padding-top: 15px; }
     .btn-action {
       flex: 1;
-      padding: 12px;
+      padding: 10px;
+      border-radius: 8px;
       border: none;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 14px;
+      font-weight: 700;
       cursor: pointer;
+      font-size: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      text-decoration: none;
-      transition: opacity 0.2s ease;
+      gap: 6px;
     }
-    .btn-action:hover { opacity: 0.9; }
-    .btn-edit-modal { background: #2563eb; color: #fff; }
-    .btn-whatsapp-direct { background: #16a34a; color: #fff; }
+    .btn-transfer { background: var(--gold); color: var(--bg); }
+    .btn-transfer:hover { background: var(--gold-hover); }
 
-    /* Edit Modal */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(5px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 15px;
+    .error-msg { text-align: center; color: var(--danger); font-weight: 700; padding: 30px; font-size: 16px; }
+    .loader { text-align: center; color: var(--text-muted); padding: 30px; }
+
+    @media (max-width: 600px) {
+      .counters-grid { grid-template-columns: repeat(2, 1fr); }
+      .filter-bar { flex-direction: column; }
+      .info-grid { grid-template-columns: 1fr; }
     }
-    .modal-card {
-      background: var(--card-bg);
-      border: 1px solid var(--gold-main);
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 550px;
-      padding: 25px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
-    .modal-header h3 { font-size: 18px; color: var(--gold-main); }
-    .close-modal { background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; }
-
-    .modal-form-group { margin-bottom: 15px; }
-    .modal-form-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #cbd5e1; }
-    .modal-form-group textarea { height: 90px; resize: vertical; }
-
-    .hidden { display: none !important; }
-    .loader { text-align: center; padding: 40px; color: var(--gold-main); font-size: 16px; font-weight: 700; }
   </style>
 </head>
 <body>
 
-<div class="admin-wrapper">
+<div class="container">
 
   <!-- Header -->
-  <header class="admin-header">
-    <div class="admin-title">
-      <i class="fa-solid fa-user-shield"></i>
-      <div>
-        <h1>إدارة طلبات المعاملات القانونية</h1>
-        <small style="color: var(--text-muted); font-size: 12px;">لوحة تحكم وتسيير طلبات العظام ومكتب آفاق</small>
-      </div>
+  <header class="header-card">
+    <div class="header-title">
+      <h2><i class="fa-solid fa-user-shield" style="color: var(--gold);"></i> إدارة طلبات المعاملات القانونية</h2>
+      <p>لوحة تحكم وتسيير طلبات العظام ومكتب آفاق</p>
     </div>
     <button class="btn-refresh" onclick="loadAllRequests()">
-      <i class="fa-solid fa-rotate"></i> تحديث السجل
+      <i class="fa-solid fa-rotate-right"></i> تحديث السجل
     </button>
   </header>
 
-  <!-- Quick Stats -->
-  <div class="stats-ribbon">
-    <div class="stat-box">
-      <div class="stat-number" id="stat-total">0</div>
-      <div class="stat-label">إجمالي المعاملات</div>
+  <!-- Counter Stats -->
+  <section class="counters-grid">
+    <div class="counter-card">
+      <div class="counter-value" id="count-total">0</div>
+      <div class="counter-label">إجمالي المعاملات</div>
     </div>
-    <div class="stat-box">
-      <div class="stat-number" id="stat-review" style="color: var(--warning)">0</div>
-      <div class="stat-label">قيد المراجعة</div>
+    <div class="counter-card">
+      <div class="counter-value" id="count-pending">0</div>
+      <div class="counter-label">قيد المراجعة</div>
     </div>
-    <div class="stat-box">
-      <div class="stat-number" id="stat-progress" style="color: var(--info)">0</div>
-      <div class="stat-label">قيد التنفيذ</div>
+    <div class="counter-card">
+      <div class="counter-value" id="count-progress">0</div>
+      <div class="counter-label">قيد التنفيذ</div>
     </div>
-    <div class="stat-box">
-      <div class="stat-number" id="stat-done" style="color: var(--success)">0</div>
-      <div class="stat-label">مكتملة / جاهزة</div>
+    <div class="counter-card">
+      <div class="counter-value" id="count-completed">0</div>
+      <div class="counter-label">مكتملة / جاهزة</div>
     </div>
-  </div>
+  </section>
 
-  <!-- Search & Filter Controls -->
-  <div class="search-filter-bar">
-    <div class="search-input-box">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" id="search-query" class="form-control" placeholder="بحث باسم العميل، رقم الهاتف، أو رمز الطلب (AF-)..." oninput="applyFilters()">
-    </div>
-    
-    <div style="flex: 1; min-width: 150px;">
-      <select id="status-filter" class="form-control" onchange="applyFilters()">
-        <option value="ALL">جميع الحالات</option>
-        <option value="قيد المراجعة">قيد المراجعة</option>
-        <option value="قيد التنفيذ">قيد التنفيذ</option>
-        <option value="جاهزة للتسليم">جاهزة للتسليم / مكتملة</option>
-      </select>
-    </div>
-  </div>
+  <!-- Filters -->
+  <section class="filter-bar">
+    <input type="text" id="search-input" class="search-input" placeholder="🔍 بحث باسم العميل، رقم الهاتف أو رقم الطلب..." oninput="filterRequests()">
+    <select id="status-filter" class="select-filter" onchange="filterRequests()">
+      <option value="ALL">جميع الحالات</option>
+      <option value="جديد">جديد / قيد المراجعة</option>
+      <option value="قيد التنفيذ">قيد التنفيذ</option>
+      <option value="مكتمل">مكتملة / جاهزة</option>
+    </select>
+  </section>
 
-  <!-- Loader -->
-  <div id="admin-loader" class="loader">
-    <i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>
-    جاري استدعاء كافة المعاملات من السجل...
-  </div>
+  <!-- Requests Container -->
+  <main id="requests-container" class="requests-list">
+    <div class="loader"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات من السيرفر...</div>
+  </main>
 
-  <!-- Cards List -->
-  <div id="cards-wrapper" class="cards-container"></div>
-
-</div>
-
-<!-- Edit Status Modal -->
-<div id="edit-modal" class="modal-overlay hidden">
-  <div class="modal-card">
-    <div class="modal-header">
-      <h3><i class="fa-solid fa-pen-to-square"></i> تحديث بيانات المعاملة</h3>
-      <button class="close-modal" onclick="closeEditModal()">&times;</button>
-    </div>
-
-    <form id="edit-form" onsubmit="saveStatusUpdate(event)">
-      <input type="hidden" id="modal-app-id">
-
-      <div class="modal-form-group">
-        <label>رمز المعاملة المحددة</label>
-        <input type="text" id="modal-app-id-display" class="form-control" disabled style="opacity: 0.7;">
-      </div>
-
-      <div class="modal-form-group">
-        <label>حالة الطلب والمعاملة</label>
-        <select id="modal-status" class="form-control" required>
-          <option value="قيد المراجعة">قيد المراجعة (استلام مبدئي)</option>
-          <option value="قيد التنفيذ والإنجاز">قيد التنفيذ والإنجاز</option>
-          <option value="جاهزة للتسليم">جاهزة للتسليم / مكتملة</option>
-          <option value="ملغاة / غير متوفرة">ملغاة / اعتذار</option>
-        </select>
-      </div>
-
-      <div class="modal-form-group">
-        <label>الموعد المتوقع للإنجاز / التسليم</label>
-        <input type="text" id="modal-appointment" class="form-control" placeholder="مثال: الخميس 15 أكتوبر - 12:00 ظهراً">
-      </div>
-
-      <div class="modal-form-group">
-        <label>ملاحظات وتوجيهات المكتب للعميل</label>
-        <textarea id="modal-notes" class="form-control" placeholder="اكتب أية مستندات إضافية مطلوبة أو تفاصيل المراجعة..."></textarea>
-      </div>
-
-      <button type="submit" id="save-btn" class="btn-action btn-edit-modal" style="width: 100%;">
-        <i class="fa-solid fa-floppy-disk"></i> حفظ التحديثات وإرسال
-      </button>
-    </form>
-  </div>
 </div>
 
 <script>
-  // رابط السيرفر المعتمد لـ Google Apps Script
+  // الرابط الجديد المحدث للسيرفر
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkKlb0erWWgXWhvy52_eUYhG5aqj7b5CF2l5-m4M20J-6TzQDHO6_H75WB4pALe1XG/exec";
 
   let allRequestsData = [];
 
-  // 1. Fetch All Requests from Server
-  function loadAllRequests() {
-    const loader = document.getElementById('admin-loader');
-    const container = document.getElementById('cards-wrapper');
-    
-    loader.classList.remove('hidden');
-    container.innerHTML = '';
+  document.addEventListener('DOMContentLoaded', loadAllRequests);
 
-    fetch(`${SCRIPT_URL}?query=ALL`)
-      .then(res => res.json())
-      .then(res => {
-        loader.classList.add('hidden');
-        if (res.success && res.data) {
-          allRequestsData = res.data;
-          updateStats();
-          renderCards(allRequestsData);
-        } else {
-          container.innerHTML = `<p style="text-align:center; color: var(--danger); padding:20px;">تعذر جلب البيانات من السيرفر.</p>`;
-        }
-      })
-      .catch(err => {
-        loader.classList.add('hidden');
-        console.error(err);
-        container.innerHTML = `<p style="text-align:center; color: var(--danger); padding:20px;">حدث خطأ أثناء الاتصال بالنظام.</p>`;
-      });
-  }
+  // 1. جلب البيانات من Google Sheets
+  async function loadAllRequests() {
+    const container = document.getElementById('requests-container');
+    container.innerHTML = `<div class="loader"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات من السيرفر...</div>`;
 
-  // 2. Format ISO Date Function
-  function formatArabicDate(dateStr) {
-    if (!dateStr) return "غير محدد";
     try {
-      const d = new Date(dateStr);
-      if (isNaN(d.getTime())) return dateStr; // Return as-is if string isn't valid ISO
-      return d.toLocaleDateString('ar-SY', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    } catch (e) {
-      return dateStr;
+      const response = await fetch(`${SCRIPT_URL}?query=ALL`);
+      const result = await response.json();
+
+      if (result.success && result.data) {
+        allRequestsData = result.data;
+        updateCounters(allRequestsData);
+        renderRequests(allRequestsData);
+      } else {
+        container.innerHTML = `<div class="error-msg">تعذر جلب البيانات من السيرفر.</div>`;
+      }
+    } catch (error) {
+      console.error(error);
+      container.innerHTML = `<div class="error-msg">تعذر جلب البيانات من السيرفر.</div>`;
     }
   }
 
-  // 3. Render Cards List (With Exact Correct Data Mapping)
-  function renderCards(dataList) {
-    const container = document.getElementById('cards-wrapper');
-    container.innerHTML = '';
+  // 2. تحديث العدادات
+  function updateCounters(data) {
+    document.getElementById('count-total').textContent = data.length;
+    document.getElementById('count-pending').textContent = data.filter(r => r.status === 'جديد' || r.status === 'قيد المراجعة').length;
+    document.getElementById('count-progress').textContent = data.filter(r => r.status === 'قيد التنفيذ').length;
+    document.getElementById('count-completed').textContent = data.filter(r => r.status === 'مكتمل' || r.status === 'جاهز').length;
+  }
 
-    if (dataList.length === 0) {
-      container.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 30px;">لا توجد معاملات مطابقة للبحث.</div>`;
+  // 3. عرض الطلبات
+  function renderRequests(data) {
+    const container = document.getElementById('requests-container');
+    if (data.length === 0) {
+      container.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding:30px;">لا توجد معاملات مطابقة.</div>`;
       return;
     }
 
-    dataList.forEach(item => {
+    container.innerHTML = '';
+    data.forEach(item => {
       const card = document.createElement('div');
       card.className = 'request-card';
-
-      // Status Badge Style
-      let statusClass = 'status-review';
-      if (item.status && (item.status.includes('تنفيذ') || item.status.includes('إنجاز'))) statusClass = 'status-progress';
-      if (item.status && (item.status.includes('جاهز') || item.status.includes('مكتمل'))) statusClass = 'status-done';
-
-      // Correct Field Association Fix:
-      const appIdValue = item.appId || 'غير محدد';
-      const formattedDate = formatArabicDate(item.date);
-
       card.innerHTML = `
-        <div class="card-top">
-          <div class="client-name"><i class="fa-solid fa-user-circle" style="color:var(--gold-main)"></i> ${item.fullName || 'بدون اسم'}</div>
-          <span class="status-pill ${statusClass}"><i class="fa-solid fa-circle"></i> ${item.status || 'قيد المراجعة'}</span>
+        <div class="request-header">
+          <span class="app-id"><i class="fa-solid fa-folder-open"></i> ${item.appId}</span>
+          <span class="status-badge status-new">${item.status || 'جديد'}</span>
         </div>
-
-        <div class="card-grid">
-          <!-- تصحيح وتبديل العناوين الحرج -->
-          <div class="info-row"><strong>رقم المعاملة:</strong> <span>${appIdValue}</span></div>
-          <div class="info-row"><strong>تاريخ الطلب:</strong> <span>${formattedDate}</span></div>
-          
-          <div class="info-row"><strong>رقم الهاتف:</strong> <span>${item.phone || '-'}</span></div>
-          <div class="info-row"><strong>اسم الأم:</strong> <span>${item.motherName || '-'}</span></div>
-          <div class="info-row"><strong>مكان الإقامة:</strong> <span>${item.residence || '-'}</span></div>
-          <div class="info-row"><strong>نوع الخدمة:</strong> <span>${item.mainService || '-'}</span></div>
-          <div class="info-row"><strong>الخدمة التفصيلية:</strong> <span>${item.subService || '-'}</span></div>
-          <div class="info-row"><strong>درجة الاستعجال:</strong> <span>${item.urgency || 'عادي'}</span></div>
-          <div class="info-row"><strong>الموعد المحدد:</strong> <span>${item.appointmentDate || 'قيد التنسيق'}</span></div>
+        <div class="info-grid">
+          <div><strong>الاسم الكامل:</strong> ${item.fullName}</div>
+          <div><strong>اسم الأم:</strong> ${item.motherName || 'غير مدخل'}</div>
+          <div><strong>رقم الهاتف:</strong> ${item.phone}</div>
+          <div><strong>الرقم الوطني:</strong> ${item.nationalId || 'غير مدخل'}</div>
+          <div><strong>نوع الخدمة:</strong> ${item.mainService}</div>
+          <div><strong>الدرجة:</strong> ${item.urgency || 'عادي'}</div>
         </div>
-
-        ${item.details ? `<div style="font-size: 13px; color: #94a3b8; margin-bottom: 10px;"><strong>تفاصيل العميل:</strong> ${item.details}</div>` : ''}
-
-        <div class="lawyer-notes-card">
-          <strong><i class="fa-solid fa-comment-dots"></i> ملاحظات المكتب المسجلة:</strong><br>
-          ${item.lawyerNotes || 'لا توجد ملاحظات مضافة بعد.'}
-        </div>
-
         <div class="card-actions">
-          <button class="btn-action btn-edit-modal" onclick="openEditModal('${appIdValue}', '${item.status || 'قيد المراجعة'}', '${item.appointmentDate || ''}', '${(item.lawyerNotes || '').replace(/'/g, "\\'")}')">
-            <i class="fa-solid fa-pen-to-square"></i> تعديل الحالة والملاحظات
+          <button class="btn-action btn-transfer" onclick="transferToGovPortal('${item.appId}')">
+            <i class="fa-solid fa-paper-plane"></i> 🚀 ترحيل للبوابة الحكومية
           </button>
-          
-          <a href="https://wa.me/${cleanPhone(item.phone)}?text=${encodeURIComponent('مرحباً ' + item.fullName + '، بشأن معاملتكم رقم: (' + appIdValue + ') - حالة الطلب الحالية: ' + (item.status || 'قيد المراجعة'))}" target="_blank" class="btn-action btn-whatsapp-direct">
-            <i class="fa-brands fa-whatsapp"></i> مراسلة العميل واتساب
-          </a>
         </div>
       `;
       container.appendChild(card);
     });
   }
 
-  // 4. Update Header Stats Bar
-  function updateStats() {
-    document.getElementById('stat-total').textContent = allRequestsData.length;
-    document.getElementById('stat-review').textContent = allRequestsData.filter(x => !x.status || x.status.includes('مراجعة')).length;
-    document.getElementById('stat-progress').textContent = allRequestsData.filter(x => x.status && (x.status.includes('تنفيذ') || x.status.includes('إنجاز'))).length;
-    document.getElementById('stat-done').textContent = allRequestsData.filter(x => x.status && (x.status.includes('جاهز') || x.status.includes('مكتمل'))).length;
-  }
-
-  // 5. Live Search & Status Filters
-  function applyFilters() {
-    const q = document.getElementById('search-query').value.trim().toLowerCase();
-    const st = document.getElementById('status-filter').value;
+  // 4. فلترة الطلبات والبحث
+  function filterRequests() {
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const status = document.getElementById('status-filter').value;
 
     const filtered = allRequestsData.filter(item => {
-      const matchSearch = !q || 
-        (item.fullName && item.fullName.toLowerCase().includes(q)) ||
-        (item.phone && item.phone.includes(q)) ||
-        (item.appId && item.appId.toLowerCase().includes(q));
-
-      const matchStatus = st === 'ALL' || (item.status && item.status.includes(st));
-
-      return matchSearch && matchStatus;
-    });
-
-    renderCards(filtered);
-  }
-
-  // Clean Phone Number for WhatsApp
-  function cleanPhone(phone) {
-    if (!phone) return '';
-    return phone.replace(/[^0-9]/g, '');
-  }
-
-  // Modal Controls
-  function openEditModal(appId, status, appointment, notes) {
-    document.getElementById('modal-app-id').value = appId;
-    document.getElementById('modal-app-id-display').value = appId;
-    document.getElementById('modal-status').value = status;
-    document.getElementById('modal-appointment').value = appointment;
-    document.getElementById('modal-notes').value = notes;
-    
-    document.getElementById('edit-modal').classList.remove('hidden');
-  }
-
-  function closeEditModal() {
-    document.getElementById('edit-modal').classList.add('hidden');
-  }
-
-  // 6. Save Updated Status to Server
-  function saveStatusUpdate(e) {
-    e.preventDefault();
-    const btn = document.getElementById('save-btn');
-    btn.disabled = true;
-    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ...`;
-
-    const payload = {
-      action: "updateStatus",
-      appId: document.getElementById('modal-app-id').value,
-      status: document.getElementById('modal-status').value,
-      appointmentDate: document.getElementById('modal-appointment').value,
-      lawyerNotes: document.getElementById('modal-notes').value
-    };
-
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    })
-    .then(res => res.json())
-    .then(res => {
-      btn.disabled = false;
-      btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> حفظ التحديثات وإرسال`;
+      const matchesSearch = (item.fullName && item.fullName.toLowerCase().includes(query)) ||
+                            (item.phone && item.phone.includes(query)) ||
+                            (item.appId && item.appId.toLowerCase().includes(query));
       
-      closeEditModal();
-      alert("تم تحديث حالة المعاملة بنجاح!");
-      loadAllRequests(); // Reload data
-    })
-    .catch(err => {
-      btn.disabled = false;
-      btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> حفظ التحديثات وإرسال`;
-      alert("حدث خطأ أثناء حفظ التحديثات.");
+      const matchesStatus = status === 'ALL' || item.status === status;
+
+      return matchesSearch && matchesStatus;
     });
+
+    renderRequests(filtered);
   }
 
-  // Auto Load on Page Ready
-  window.onload = loadAllRequests;
+  // 5. دالة الترحيل للبوابة الحكومية
+  function transferToGovPortal(appId) {
+    const client = allRequestsData.find(item => item.appId === appId);
+    if (!client) return alert("❌ لم يتم العثور على المعاملة!");
+
+    localStorage.setItem('pendingGovTransfer', JSON.stringify(client));
+    window.open("https://ecsc.gov.sy", '_blank');
+  }
 </script>
 
 </body>
