@@ -4,14 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- عنوان الصفحة ووصف SEO -->
   <title>مكتب آفاق للخدمات القانونية وتسيير المعاملات</title>
-  <meta name="description" content="خدمات قانونية وتسيير كافة المعاملات والاستشارات بدقة ومهنية في دمشق وسوريا">
+  <meta name="description" content="خدمات قانونية وتسيير كافة المعاملات والاستشارات بدقة ومهنية في عفرين وحلب وسوريا">
 
-  <!-- أيقونة الموقع في تبويب المتصفح (Favicon) -->
   <link rel="icon" type="image/jpeg" href="IMG_3679.jpeg">
 
-  <!-- بطاقة المعاينة للواتساب وفيسبوك (Open Graph) -->
   <meta property="og:title" content="مكتب آفاق للخدمات القانونية">
   <meta property="og:description" content="خدمات قانونية وتسيير كافة المعاملات والاستشارات بدقة ومهنية">
   <meta property="og:image" content="IMG_3679.jpeg">
@@ -41,7 +38,6 @@
 
     .main-wrapper { max-width: 720px; margin: 0 auto; }
 
-    /* Header & Logo Styling */
     .brand-header {
       background: linear-gradient(135deg, #0b1329 0%, #1a2b4c 100%);
       color: #ffffff;
@@ -51,14 +47,9 @@
       margin-bottom: 25px;
       box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
       border-bottom: 4px solid var(--gold);
-      position: relative;
     }
     
-    .logo-wrapper {
-      display: inline-block;
-      margin-bottom: 15px;
-      position: relative;
-    }
+    .logo-wrapper { display: inline-block; margin-bottom: 15px; }
     .brand-logo {
       width: 130px;
       height: 130px;
@@ -66,24 +57,10 @@
       border-radius: 18px;
       border: 3px solid var(--gold);
       box-shadow: 0 8px 25px rgba(0,0,0,0.35);
-      transition: transform 0.3s ease;
-    }
-    .brand-logo:hover {
-      transform: scale(1.03);
     }
 
-    .brand-header h1 { 
-      font-size: 26px; 
-      font-weight: 800; 
-      margin-bottom: 6px; 
-      color: #ffffff;
-      letter-spacing: -0.5px;
-    }
-    .brand-header p { 
-      font-size: 15px; 
-      color: #cbd5e1; 
-      font-weight: 500; 
-    }
+    .brand-header h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; color: #ffffff; }
+    .brand-header p { font-size: 15px; color: #cbd5e1; font-weight: 500; }
     .brand-header .contacts-bar {
       display: flex;
       justify-content: center;
@@ -95,7 +72,6 @@
       flex-wrap: wrap;
     }
 
-    /* Tabs Navigation */
     .tabs-nav {
       display: flex;
       background: #e2e8f0;
@@ -126,7 +102,6 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     }
 
-    /* Card Panels */
     .panel-card {
       background: var(--card-bg);
       border-radius: var(--radius);
@@ -142,12 +117,8 @@
       margin-bottom: 20px;
       padding-bottom: 8px;
       border-bottom: 2px solid #e2e8f0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
-    /* Form Grid & Inputs */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -179,16 +150,13 @@
       background-color: #f8fafc;
       color: var(--text-main);
       outline: none;
-      transition: border-color 0.2s ease, background-color 0.2s ease;
     }
     .form-control:focus {
       border-color: var(--gold);
       background-color: #ffffff;
-      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
     }
     textarea.form-control { resize: vertical; min-height: 90px; }
 
-    /* Custom File Input Zone */
     .file-drop-zone {
       border: 2px dashed var(--gold);
       background: #fdfbf7;
@@ -196,12 +164,9 @@
       text-align: center;
       border-radius: 10px;
       cursor: pointer;
-      transition: 0.2s;
     }
-    .file-drop-zone:hover { background: #f7f0e3; }
     .file-drop-zone p { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
 
-    /* Buttons */
     .btn-submit {
       width: 100%;
       background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
@@ -212,14 +177,10 @@
       font-size: 16px;
       font-weight: 800;
       cursor: pointer;
-      transition: all 0.2s ease;
       margin-top: 10px;
-      box-shadow: 0 4px 15px rgba(30, 58, 138, 0.25);
     }
-    .btn-submit:hover { opacity: 0.95; transform: translateY(-1px); }
-    .btn-submit:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
+    .btn-submit:disabled { background: #94a3b8; cursor: not-allowed; }
 
-    /* Success & Status Views */
     .alert-box {
       padding: 20px;
       border-radius: 12px;
@@ -227,7 +188,6 @@
       text-align: center;
     }
     .alert-success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
-    .alert-success h3 { font-size: 20px; margin-bottom: 8px; }
     .app-id-tag {
       display: inline-block;
       background: var(--gold);
@@ -237,11 +197,8 @@
       font-size: 20px;
       font-weight: 800;
       margin: 12px 0;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3);
     }
 
-    /* Search Result Card */
     .status-card {
       background: #ffffff;
       border: 1px solid var(--border);
@@ -249,15 +206,7 @@
       padding: 18px;
       margin-top: 15px;
       position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    }
-    .status-card::before {
-      content: '';
-      position: absolute;
-      top: 0; right: 0; bottom: 0;
-      width: 6px;
-      background: var(--gold);
+      border-right: 6px solid var(--gold);
     }
     .status-header {
       display: flex;
@@ -283,10 +232,8 @@
       padding: 10px 12px;
       font-size: 13px;
       margin-top: 10px;
-      border-radius: 0 6px 6px 0;
     }
 
-    /* Floating WhatsApp Button */
     .whatsapp-btn {
       position: fixed;
       bottom: 20px;
@@ -303,13 +250,8 @@
       box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
       text-decoration: none;
       z-index: 999;
-      transition: transform 0.2s ease;
-    }
-    .whatsapp-btn:hover {
-      transform: scale(1.05);
     }
 
-    /* Footer */
     .footer {
       text-align: center;
       margin-top: 30px;
@@ -327,7 +269,6 @@
 
 <div class="main-wrapper">
 
-  <!-- الهيدر واللوغو الاحترافي -->
   <header class="brand-header">
     <div class="logo-wrapper">
       <img src="IMG_3679.jpeg" alt="مكتب آفاق للخدمات القانونية" class="brand-logo" onerror="this.src='https://via.placeholder.com/130/0f172a/c5a059?text=مكتب+آفاق'">
@@ -340,7 +281,6 @@
     </div>
   </header>
 
-  <!-- تبويبات التنقل -->
   <nav class="tabs-nav">
     <button class="tab-btn active" id="btn-tab-new" onclick="switchTab('tab-new')">
       📝 تقديم طلب جديد
@@ -350,7 +290,6 @@
     </button>
   </nav>
 
-  <!-- 1. نموذج تقديم طلب جديد -->
   <main id="tab-new" class="tab-content panel-card">
     <div class="section-title">بيانات صاحـب المعاملة والطلب</div>
     
@@ -425,7 +364,7 @@
 
         <div class="form-group full-width">
           <label>تفاصيل المعاملة أو شرح الطلب</label>
-          <textarea id="details" class="form-control" placeholder="يرجى كتابة أي معلومات إضافية أو شرح مختصر للطلب لتسهيل المتابعة..."></textarea>
+          <textarea id="details" class="form-control" placeholder="يرجى كتابة أي معلومات إضافية لتسهيل المتابعة..."></textarea>
         </div>
 
         <div class="form-group full-width">
@@ -445,7 +384,6 @@
     <div id="submit-success" class="alert-box alert-success hidden"></div>
   </main>
 
-  <!-- 2. قسم تتبع الحالة والاستعلام -->
   <section id="tab-track" class="tab-content panel-card hidden">
     <div class="section-title">تتبع حالة المعاملة برقم الطلب أو الهاتف</div>
     
@@ -461,20 +399,19 @@
     <div id="track-results-container"></div>
   </section>
 
-  <!-- تذييل الصفحة -->
   <footer class="footer">
     <p>جميع الحقوق محفوظة © مكتب آفاق للخدمات القانونية والتسيير</p>
   </footer>
 
 </div>
 
-<!-- زر الواتساب العائم (يمكنك تغيير الرقم أدناه برقم الواتساب الخاص بك) -->
 <a href="https://wa.me/963912345678" target="_blank" class="whatsapp-btn" title="تواصل عبر الواتساب">
   💬 تواصل معنا
 </a>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGJteukHDM6wkRJiyxbJ7cQ8p-BhKPnVEjg3gyVJOxTyv6NfkD-O5NCK_9I-R5GOc3/exec";
+  // رابط Google Apps Script المُحدث
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkKlb0erWWgXWhvy52_eUYhG5aqj7b5CF2l5-m4M20J-6TzQDHO6_H75WB4pALe1XG/exec";
 
   function switchTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -565,7 +502,11 @@
 
     fetch(SCRIPT_URL, {
       method: "POST",
-      body: JSON.stringify(payload)
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(payload),
+      redirect: "follow"
     })
     .then(res => res.json())
     .then(res => {
@@ -578,7 +519,7 @@
           <h3>تم استلام طلبك بنجاح! 🎉</h3>
           <p>رمز التتبع الخاص بمعاملتك هو:</p>
           <div class="app-id-tag">${res.appId}</div>
-          <p style="font-size: 13px; color: #475569;">احتفظ بهذا الرقم للاستعلام عن حالة المعاملة وموعد الاستلام عبر تبويب "تتبع حالة معاملة".</p>
+          <p style="font-size: 13px; color: #475569;">احتفظ بهذا الرقم للاستعلام عن حالة المعاملة عبر تبويب "تتبع حالة معاملة".</p>
         `;
         document.getElementById('main-request-form').reset();
         document.getElementById('file-name-display').textContent = "الملفات المسموحة: JPG, PNG, PDF (الحد الأقصى 10 ميغابايت)";
@@ -590,7 +531,8 @@
     .catch(err => {
       btn.disabled = false;
       btn.textContent = "تأكيد وإرسال الطلب الآن";
-      alert("حدث خطأ في الاتصال بالسيرفر. يرجى إعادة المحاولة.");
+      console.error(err);
+      alert("حدث خطأ أثناء التواصل مع السيرفر. يرجى إعادة المحاولة.");
     });
   }
 
@@ -629,10 +571,10 @@
               </div>
               <div class="info-row"><strong>الاسم:</strong> ${item.fullName}</div>
               <div class="info-row"><strong>الخدمة:</strong> ${item.mainService} (${item.subService})</div>
-              <div class="info-row"><strong>الموعد المتوقع للإنجاز:</strong> ${item.appointmentDate || 'قيد التحديد والتنسيق'}</div>
+              <div class="info-row"><strong>الموعد المتوقع للإنجاز:</strong> ${item.appointmentDate}</div>
               <div class="lawyer-note-box">
                 <strong>ملاحظات المكتب:</strong><br>
-                ${item.lawyerNotes || 'تم استلام الطلب وبانتظار مراجعة الأوراق.'}
+                ${item.lawyerNotes}
               </div>
             `;
             container.appendChild(card);
