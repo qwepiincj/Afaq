@@ -3,312 +3,541 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة تحكم المكتب - إدارة الطلبات</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <title>لوحة إدارة المعاملات - مكتب آفاق للخدمات القانونية</title>
+  
+  <link rel="icon" type="image/jpeg" href="IMG_3679.jpeg">
+
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     :root {
-      --primary: #1e293b;
-      --accent: #2563eb;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #0f172a;
-      --border: #e2e8f0;
-      --success: #16a34a;
+      --bg-dark: #091222;
+      --card-bg: #111e38;
+      --card-inner: #192a4a;
+      --gold-main: #c5a059;
+      --gold-hover: #e5be75;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #233558;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --danger: #ef4444;
+      --radius: 14px;
     }
 
-    * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
-    body { background-color: var(--bg); color: var(--text); padding: 15px; direction: rtl; }
+    * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
+    body { background-color: var(--bg-dark); color: var(--text-white); padding: 20px 12px; direction: rtl; min-height: 100vh; }
 
-    .container { max-width: 900px; margin: 0 auto; }
-    
-    /* Lock Screen */
-    #login-screen {
-      background: var(--card-bg);
-      padding: 30px 20px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      text-align: center;
-      margin-top: 50px;
-    }
-    .input-field {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 16px;
-      text-align: center;
-    }
-    
-    /* Header & Filters */
-    .header {
+    .admin-wrapper { max-width: 900px; margin: 0 auto; }
+
+    /* Top Brand Header */
+    .admin-header {
+      background: linear-gradient(135deg, #111e38 0%, #1d3557 100%);
+      padding: 22px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      border-bottom: 3px solid var(--gold-main);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       margin-bottom: 20px;
-      background: var(--primary);
-      color: #fff;
-      padding: 15px 20px;
-      border-radius: 12px;
-    }
-    .search-box {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 15px;
-      font-size: 15px;
     }
 
-    /* Cards for Mobile Friendly Layout */
-    .cards-list { display: grid; gap: 15px; }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    .admin-title { display: flex; align-items: center; gap: 12px; }
+    .admin-title i { font-size: 26px; color: var(--gold-main); }
+    .admin-title h1 { font-size: 20px; font-weight: 800; }
+
+    .btn-refresh {
+      background: rgba(197, 160, 89, 0.15);
+      color: var(--gold-main);
+      border: 1px solid var(--gold-main);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
     }
-    .card-header {
+    .btn-refresh:hover { background: var(--gold-main); color: var(--bg-dark); }
+
+    /* Stats Ribbon */
+    .stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 14px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .stat-number { font-size: 22px; font-weight: 800; color: var(--gold-main); }
+    .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+
+    /* Filter & Search Bar */
+    .search-filter-bar {
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      margin-bottom: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .search-input-box { flex: 2; min-width: 200px; position: relative; }
+    .search-input-box i { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 40px 12px 14px;
+      background-color: var(--card-inner);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    .form-control:focus { border-color: var(--gold-main); }
+    select.form-control { padding-right: 14px; cursor: pointer; }
+
+    /* Request Cards */
+    .cards-container { display: flex; flex-direction: column; gap: 16px; }
+
+    .request-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 22px;
+      position: relative;
+      border-right: 6px solid var(--gold-main);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
+    }
+    .request-card:hover { transform: translateY(-2px); }
+
+    .card-top {
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
-      margin-bottom: 10px;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 14px;
     }
-    .badge {
-      background: #e2e8f0;
-      padding: 4px 10px;
+    .client-name { font-size: 18px; font-weight: 800; color: #fff; }
+    
+    .status-pill {
+      padding: 5px 14px;
       border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-review { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+    .status-progress { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }
+    .status-done { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 18px;
+      font-size: 13.5px;
+      margin-bottom: 15px;
+    }
+    @media (max-width: 600px) { .card-grid { grid-template-columns: 1fr; } }
+
+    .info-row { display: flex; gap: 6px; color: #e2e8f0; }
+    .info-row strong { color: var(--gold-main); min-width: 105px; font-weight: 700; }
+    .info-row span { color: #f1f5f9; word-break: break-word; }
+
+    .lawyer-notes-card {
+      background: var(--card-inner);
+      padding: 12px 15px;
+      border-radius: 10px;
       font-size: 13px;
-      font-weight: bold;
+      border-right: 3px solid var(--info);
+      margin-bottom: 16px;
+      color: #cbd5e1;
     }
-    .card-body p { margin: 6px 0; font-size: 14px; line-height: 1.5; }
-    .card-body strong { color: var(--primary); }
 
-    .btn {
-      background: var(--accent);
-      color: white;
+    .card-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-action {
+      flex: 1;
+      padding: 12px;
       border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      width: 100%;
-      margin-top: 10px;
+      border-radius: 10px;
+      font-weight: 800;
       font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
     }
-    .btn-wa { background: #25D366; }
-    .btn-file { background: #64748b; margin-top: 5px; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-edit-modal { background: #2563eb; color: #fff; }
+    .btn-whatsapp-direct { background: #16a34a; color: #fff; }
 
-    /* Modal */
-    .modal {
-      display: none;
+    /* Edit Modal */
+    .modal-overlay {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      align-items: center; justify-content: center;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
       padding: 15px;
     }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
+    .modal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--gold-main);
+      border-radius: var(--radius);
       width: 100%;
-      max-width: 500px;
+      max-width: 550px;
+      padding: 25px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+    .modal-header h3 { font-size: 18px; color: var(--gold-main); }
+    .close-modal { background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; }
+
+    .modal-form-group { margin-bottom: 15px; }
+    .modal-form-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #cbd5e1; }
+    .modal-form-group textarea { height: 90px; resize: vertical; }
 
     .hidden { display: none !important; }
-    .loading { text-align: center; padding: 30px; font-weight: bold; }
+    .loader { text-align: center; padding: 40px; color: var(--gold-main); font-size: 16px; font-weight: 700; }
   </style>
 </head>
 <body>
 
-<div class="container">
+<div class="admin-wrapper">
 
-  <!-- شاشة الدخول -->
-  <div id="login-screen">
-    <h2>لوحة تحكم المكتب</h2>
-    <p style="color: #64748b; margin: 10px 0;">أدخل رمز الدخول للمتابعة</p>
-    <input type="password" id="pin-input" class="input-field" placeholder="رمز الدخول (الافتراضي 1234)">
-    <button class="btn" onclick="checkPin()">دخول</button>
-  </div>
-
-  <!-- لوحة التحكم -->
-  <div id="dashboard" class="hidden">
-    <div class="header">
-      <h3>إدارة طلبات المعاملات</h3>
-      <button onclick="fetchData()" style="background:none; border:none; color:white; cursor:pointer;">🔄 تحديث</button>
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="admin-title">
+      <i class="fa-solid fa-user-shield"></i>
+      <div>
+        <h1>إدارة طلبات المعاملات القانونية</h1>
+        <small style="color: var(--text-muted); font-size: 12px;">لوحة تحكم وتسيير طلبات العظام ومكتب آفاق</small>
+      </div>
     </div>
+    <button class="btn-refresh" onclick="loadAllRequests()">
+      <i class="fa-solid fa-rotate"></i> تحديث السجل
+    </button>
+  </header>
 
-    <input type="text" id="search-input" class="search-box" placeholder="بحث باسم العميل، رقم الهاتف، أو رقم الطلب..." oninput="filterData()">
-
-    <div id="loading" class="loading hidden">جاري تحميل البيانات...</div>
-    <div id="cards-container" class="cards-list"></div>
+  <!-- Quick Stats -->
+  <div class="stats-ribbon">
+    <div class="stat-box">
+      <div class="stat-number" id="stat-total">0</div>
+      <div class="stat-label">إجمالي المعاملات</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number" id="stat-review" style="color: var(--warning)">0</div>
+      <div class="stat-label">قيد المراجعة</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number" id="stat-progress" style="color: var(--info)">0</div>
+      <div class="stat-label">قيد التنفيذ</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number" id="stat-done" style="color: var(--success)">0</div>
+      <div class="stat-label">مكتملة / جاهزة</div>
+    </div>
   </div>
+
+  <!-- Search & Filter Controls -->
+  <div class="search-filter-bar">
+    <div class="search-input-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="search-query" class="form-control" placeholder="بحث باسم العميل، رقم الهاتف، أو رمز الطلب (AF-)..." oninput="applyFilters()">
+    </div>
+    
+    <div style="flex: 1; min-width: 150px;">
+      <select id="status-filter" class="form-control" onchange="applyFilters()">
+        <option value="ALL">جميع الحالات</option>
+        <option value="قيد المراجعة">قيد المراجعة</option>
+        <option value="قيد التنفيذ">قيد التنفيذ</option>
+        <option value="جاهزة للتسليم">جاهزة للتسليم / مكتملة</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div id="admin-loader" class="loader">
+    <i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>
+    جاري استدعاء كافة المعاملات من السجل...
+  </div>
+
+  <!-- Cards List -->
+  <div id="cards-wrapper" class="cards-container"></div>
 
 </div>
 
-<!-- نافذة التعديل -->
-<div id="edit-modal" class="modal">
-  <div class="modal-content">
-    <h3>تحديث حالة الطلب</h3>
-    <input type="hidden" id="edit-app-id">
-    
-    <label style="display:block; margin-top:10px; font-weight:bold;">حالة الطلب:</label>
-    <select id="edit-status" class="input-field" style="text-align:right;">
-      <option value="جديد - قيد التدقيق">جديد - قيد التدقيق</option>
-      <option value="قيد المعالجة والإنجاز">قيد المعالجة والإنجاز</option>
-      <option value="جاهز للتسليم">جاهز للتسليم</option>
-      <option value="تم الإنجاز والإنهاء">تم الإنجاز والإنهاء</option>      <option value="مرفوض / يتطلب مراجعة">مرفوض / يتطلب مراجعة</option>
-    </select>
+<!-- Edit Status Modal -->
+<div id="edit-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-pen-to-square"></i> تحديث بيانات المعاملة</h3>
+      <button class="close-modal" onclick="closeEditModal()">&times;</button>
+    </div>
 
-    <label style="display:block; margin-top:10px; font-weight:bold;">الموعد المتوقع / تاريخ الإنجاز:</label>
-    <input type="text" id="edit-date" class="input-field" placeholder="مثال: 2026/10/05 أو غداً الساعة 10 صباحاً">
+    <form id="edit-form" onsubmit="saveStatusUpdate(event)">
+      <input type="hidden" id="modal-app-id">
 
-    <label style="display:block; margin-top:10px; font-weight:bold;">ملاحظات المكتب للعميل:</label>
-    <textarea id="edit-notes" class="input-field" style="height:80px; text-align:right;" placeholder="أدخل أي ملاحظات تظهر للعميل عند الاستعلام"></textarea>
+      <div class="modal-form-group">
+        <label>رمز المعاملة المحددة</label>
+        <input type="text" id="modal-app-id-display" class="form-control" disabled style="opacity: 0.7;">
+      </div>
 
-    <button class="btn" onclick="saveStatus()">حفظ والتحديث</button>
-    <button class="btn" style="background:#e2e8f0; color:#0f172a; margin-top:5px;" onclick="closeModal()">إلغاء</button>
+      <div class="modal-form-group">
+        <label>حالة الطلب والمعاملة</label>
+        <select id="modal-status" class="form-control" required>
+          <option value="قيد المراجعة">قيد المراجعة (استلام مبدئي)</option>
+          <option value="قيد التنفيذ والإنجاز">قيد التنفيذ والإنجاز</option>
+          <option value="جاهزة للتسليم">جاهزة للتسليم / مكتملة</option>
+          <option value="ملغاة / غير متوفرة">ملغاة / اعتذار</option>
+        </select>
+      </div>
+
+      <div class="modal-form-group">
+        <label>الموعد المتوقع للإنجاز / التسليم</label>
+        <input type="text" id="modal-appointment" class="form-control" placeholder="مثال: الخميس 15 أكتوبر - 12:00 ظهراً">
+      </div>
+
+      <div class="modal-form-group">
+        <label>ملاحظات وتوجيهات المكتب للعميل</label>
+        <textarea id="modal-notes" class="form-control" placeholder="اكتب أية مستندات إضافية مطلوبة أو تفاصيل المراجعة..."></textarea>
+      </div>
+
+      <button type="submit" id="save-btn" class="btn-action btn-edit-modal" style="width: 100%;">
+        <i class="fa-solid fa-floppy-disk"></i> حفظ التحديثات وإرسال
+      </button>
+    </form>
   </div>
 </div>
 
 <script>
-  // رابط السكربت الخاص بك
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGJteukHDM6wkRJiyxbJ7cQ8p-BhKPnVEjg3gyVJOxTyv6NfkD-O5NCK_9I-R5GOc3/exec";
-  const ADMIN_PIN = "1234"; 
+  // رابط السيرفر المعتمد لـ Google Apps Script
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkKlb0erWWgXWhvy52_eUYhG5aqj7b5CF2l5-m4M20J-6TzQDHO6_H75WB4pALe1XG/exec";
 
-  let allData = [];
+  let allRequestsData = [];
 
-  function checkPin() {
-    const pin = document.getElementById('pin-input').value;
-    if (pin === ADMIN_PIN) {
-      document.getElementById('login-screen').classList.add('hidden');
-      document.getElementById('dashboard').classList.remove('hidden');
-      fetchData();
-    } else {
-      alert("رمز الدخول غير صحيح!");
-    }
-  }
+  // 1. Fetch All Requests from Server
+  function loadAllRequests() {
+    const loader = document.getElementById('admin-loader');
+    const container = document.getElementById('cards-wrapper');
+    
+    loader.classList.remove('hidden');
+    container.innerHTML = '';
 
-  function fetchData() {
-    document.getElementById('loading').classList.remove('hidden');
-    document.getElementById('cards-container').innerHTML = '';
-
-    fetch(`${SCRIPT_URL}?action=adminFetch`)
+    fetch(`${SCRIPT_URL}?query=ALL`)
       .then(res => res.json())
       .then(res => {
-        document.getElementById('loading').classList.add('hidden');
-        if (res.success) {
-          allData = res.data;
-          renderCards(allData);
+        loader.classList.add('hidden');
+        if (res.success && res.data) {
+          allRequestsData = res.data;
+          updateStats();
+          renderCards(allRequestsData);
         } else {
-          alert("فشل في جلب البيانات");
+          container.innerHTML = `<p style="text-align:center; color: var(--danger); padding:20px;">تعذر جلب البيانات من السيرفر.</p>`;
         }
       })
       .catch(err => {
-        document.getElementById('loading').classList.add('hidden');
-        alert("حدث خطأ في الاتصال بالسكربت");
+        loader.classList.add('hidden');
+        console.error(err);
+        container.innerHTML = `<p style="text-align:center; color: var(--danger); padding:20px;">حدث خطأ أثناء الاتصال بالنظام.</p>`;
       });
   }
 
-  function renderCards(data) {
-    const container = document.getElementById('cards-container');
+  // 2. Format ISO Date Function
+  function formatArabicDate(dateStr) {
+    if (!dateStr) return "غير محدد";
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr; // Return as-is if string isn't valid ISO
+      return d.toLocaleDateString('ar-SY', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch (e) {
+      return dateStr;
+    }
+  }
+
+  // 3. Render Cards List (With Exact Correct Data Mapping)
+  function renderCards(dataList) {
+    const container = document.getElementById('cards-wrapper');
     container.innerHTML = '';
 
-    if(data.length === 0) {
-      container.innerHTML = '<p style="text-align:center;">لا توجد طلبات حتى الآن</p>';
+    if (dataList.length === 0) {
+      container.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 30px;">لا توجد معاملات مطابقة للبحث.</div>`;
       return;
     }
 
-    data.forEach(item => {
-      const cleanPhone = String(item.phone).replace(/[^0-9]/g, '');
-      const waLink = `https://wa.me/${cleanPhone}`;
-
+    dataList.forEach(item => {
       const card = document.createElement('div');
-      card.className = 'card';
+      card.className = 'request-card';
+
+      // Status Badge Style
+      let statusClass = 'status-review';
+      if (item.status && (item.status.includes('تنفيذ') || item.status.includes('إنجاز'))) statusClass = 'status-progress';
+      if (item.status && (item.status.includes('جاهز') || item.status.includes('مكتمل'))) statusClass = 'status-done';
+
+      // Correct Field Association Fix:
+      const appIdValue = item.appId || 'غير محدد';
+      const formattedDate = formatArabicDate(item.date);
+
       card.innerHTML = `
-        <div class="card-header">
-          <strong>${item.fullName || 'بدون اسم'}</strong>
-          <span class="badge">${item.status || 'جديد'}</span>
+        <div class="card-top">
+          <div class="client-name"><i class="fa-solid fa-user-circle" style="color:var(--gold-main)"></i> ${item.fullName || 'بدون اسم'}</div>
+          <span class="status-pill ${statusClass}"><i class="fa-solid fa-circle"></i> ${item.status || 'قيد المراجعة'}</span>
         </div>
-        <div class="card-body">
-          <p><strong>رقم المعاملة:</strong> ${item.appId}</p>
-          <p><strong>تاريخ الطلب:</strong> ${item.date}</p>
-          <p><strong>رقم الهاتف:</strong> ${item.phone}</p>
-          <p><strong>الخدمة:</strong> ${item.mainService} - ${item.subService}</p>
-          <p><strong>التفاصيل:</strong> ${item.details || 'لا يوجد'}</p>
-          <p><strong>الموعد:</strong> ${item.appointmentDate || 'غير حدد'}</p>
-          <p><strong>ملاحظات المكتب:</strong> ${item.lawyerNotes || 'لا توجد'}</p>
+
+        <div class="card-grid">
+          <!-- تصحيح وتبديل العناوين الحرج -->
+          <div class="info-row"><strong>رقم المعاملة:</strong> <span>${appIdValue}</span></div>
+          <div class="info-row"><strong>تاريخ الطلب:</strong> <span>${formattedDate}</span></div>
+          
+          <div class="info-row"><strong>رقم الهاتف:</strong> <span>${item.phone || '-'}</span></div>
+          <div class="info-row"><strong>اسم الأم:</strong> <span>${item.motherName || '-'}</span></div>
+          <div class="info-row"><strong>مكان الإقامة:</strong> <span>${item.residence || '-'}</span></div>
+          <div class="info-row"><strong>نوع الخدمة:</strong> <span>${item.mainService || '-'}</span></div>
+          <div class="info-row"><strong>الخدمة التفصيلية:</strong> <span>${item.subService || '-'}</span></div>
+          <div class="info-row"><strong>درجة الاستعجال:</strong> <span>${item.urgency || 'عادي'}</span></div>
+          <div class="info-row"><strong>الموعد المحدد:</strong> <span>${item.appointmentDate || 'قيد التنسيق'}</span></div>
         </div>
-        
-        <button class="btn" onclick="openModal('${item.appId}', '${item.status}', '${item.appointmentDate}', '${item.lawyerNotes}')">تعديل الحالة والملاحظات</button>
-        ${item.fileUrl && item.fileUrl.startsWith('http') ? `<a href="${item.fileUrl}" target="_blank"><button class="btn btn-file">عرض المرفقات 📁</button></a>` : ''}
-        <a href="${waLink}" target="_blank"><button class="btn btn-wa">مراسلة العميل واتساب 💬</button></a>
+
+        ${item.details ? `<div style="font-size: 13px; color: #94a3b8; margin-bottom: 10px;"><strong>تفاصيل العميل:</strong> ${item.details}</div>` : ''}
+
+        <div class="lawyer-notes-card">
+          <strong><i class="fa-solid fa-comment-dots"></i> ملاحظات المكتب المسجلة:</strong><br>
+          ${item.lawyerNotes || 'لا توجد ملاحظات مضافة بعد.'}
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-action btn-edit-modal" onclick="openEditModal('${appIdValue}', '${item.status || 'قيد المراجعة'}', '${item.appointmentDate || ''}', '${(item.lawyerNotes || '').replace(/'/g, "\\'")}')">
+            <i class="fa-solid fa-pen-to-square"></i> تعديل الحالة والملاحظات
+          </button>
+          
+          <a href="https://wa.me/${cleanPhone(item.phone)}?text=${encodeURIComponent('مرحباً ' + item.fullName + '، بشأن معاملتكم رقم: (' + appIdValue + ') - حالة الطلب الحالية: ' + (item.status || 'قيد المراجعة'))}" target="_blank" class="btn-action btn-whatsapp-direct">
+            <i class="fa-brands fa-whatsapp"></i> مراسلة العميل واتساب
+          </a>
+        </div>
       `;
       container.appendChild(card);
     });
   }
 
-  function filterData() {
-    const q = document.getElementById('search-input').value.toLowerCase();
-    const filtered = allData.filter(item => 
-      String(item.fullName).toLowerCase().includes(q) ||
-      String(item.phone).toLowerCase().includes(q) ||
-      String(item.appId).toLowerCase().includes(q)
-    );
+  // 4. Update Header Stats Bar
+  function updateStats() {
+    document.getElementById('stat-total').textContent = allRequestsData.length;
+    document.getElementById('stat-review').textContent = allRequestsData.filter(x => !x.status || x.status.includes('مراجعة')).length;
+    document.getElementById('stat-progress').textContent = allRequestsData.filter(x => x.status && (x.status.includes('تنفيذ') || x.status.includes('إنجاز'))).length;
+    document.getElementById('stat-done').textContent = allRequestsData.filter(x => x.status && (x.status.includes('جاهز') || x.status.includes('مكتمل'))).length;
+  }
+
+  // 5. Live Search & Status Filters
+  function applyFilters() {
+    const q = document.getElementById('search-query').value.trim().toLowerCase();
+    const st = document.getElementById('status-filter').value;
+
+    const filtered = allRequestsData.filter(item => {
+      const matchSearch = !q || 
+        (item.fullName && item.fullName.toLowerCase().includes(q)) ||
+        (item.phone && item.phone.includes(q)) ||
+        (item.appId && item.appId.toLowerCase().includes(q));
+
+      const matchStatus = st === 'ALL' || (item.status && item.status.includes(st));
+
+      return matchSearch && matchStatus;
+    });
+
     renderCards(filtered);
   }
 
-  function openModal(appId, status, date, notes) {
-    document.getElementById('edit-app-id').value = appId;
-    document.getElementById('edit-status').value = status || 'جديد - قيد التدقيق';
-    document.getElementById('edit-date').value = date || '';
-    document.getElementById('edit-notes').value = notes || '';
-    document.getElementById('edit-modal').style.display = 'flex';
+  // Clean Phone Number for WhatsApp
+  function cleanPhone(phone) {
+    if (!phone) return '';
+    return phone.replace(/[^0-9]/g, '');
   }
 
-  function closeModal() {
-    document.getElementById('edit-modal').style.display = 'none';
+  // Modal Controls
+  function openEditModal(appId, status, appointment, notes) {
+    document.getElementById('modal-app-id').value = appId;
+    document.getElementById('modal-app-id-display').value = appId;
+    document.getElementById('modal-status').value = status;
+    document.getElementById('modal-appointment').value = appointment;
+    document.getElementById('modal-notes').value = notes;
+    
+    document.getElementById('edit-modal').classList.remove('hidden');
   }
 
-  function saveStatus() {
-    const appId = document.getElementById('edit-app-id').value;
-    const status = document.getElementById('edit-status').value;
-    const appointmentDate = document.getElementById('edit-date').value;
-    const lawyerNotes = document.getElementById('edit-notes').value;
+  function closeEditModal() {
+    document.getElementById('edit-modal').classList.add('hidden');
+  }
+
+  // 6. Save Updated Status to Server
+  function saveStatusUpdate(e) {
+    e.preventDefault();
+    const btn = document.getElementById('save-btn');
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ...`;
 
     const payload = {
       action: "updateStatus",
-      appId: appId,
-      status: status,
-      appointmentDate: appointmentDate,
-      lawyerNotes: lawyerNotes
+      appId: document.getElementById('modal-app-id').value,
+      status: document.getElementById('modal-status').value,
+      appointmentDate: document.getElementById('modal-appointment').value,
+      lawyerNotes: document.getElementById('modal-notes').value
     };
-
-    closeModal();
-    document.getElementById('loading').classList.remove('hidden');
 
     fetch(SCRIPT_URL, {
       method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload)
     })
     .then(res => res.json())
     .then(res => {
-      document.getElementById('loading').classList.add('hidden');
-      if (res.success) {
-        alert("تم تحديث الحالة بنجاح!");
-        fetchData();
-      } else {
-        alert("حدث خطأ أثناء التحديث");
-      }
+      btn.disabled = false;
+      btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> حفظ التحديثات وإرسال`;
+      
+      closeEditModal();
+      alert("تم تحديث حالة المعاملة بنجاح!");
+      loadAllRequests(); // Reload data
     })
     .catch(err => {
-      document.getElementById('loading').classList.add('hidden');
-      alert("تعذر الاتصال بالسيرفر للتحديث");
+      btn.disabled = false;
+      btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> حفظ التحديثات وإرسال`;
+      alert("حدث خطأ أثناء حفظ التحديثات.");
     });
   }
+
+  // Auto Load on Page Ready
+  window.onload = loadAllRequests;
 </script>
 
 </body>
