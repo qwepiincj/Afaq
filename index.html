@@ -3,220 +3,414 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مكتب آفاق - الخدمات القانونية والمعاملات</title>
+  <title>مكتب آفاق للخدمات القانونية وتسيير المعاملات</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1e293b;
-      --accent: #2563eb;
+      --primary: #0f172a;
+      --primary-accent: #1e3a8a;
+      --gold: #c5a059;
+      --gold-dark: #9a7b3e;
       --bg: #f8fafc;
       --card-bg: #ffffff;
-      --text: #0f172a;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
       --border: #cbd5e1;
       --success: #16a34a;
+      --danger: #dc2626;
+      --radius: 14px;
     }
 
     * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
-    body { background-color: var(--bg); color: var(--text); padding: 15px; direction: rtl; }
+    body { background-color: var(--bg); color: var(--text-main); padding: 20px 10px; direction: rtl; line-height: 1.6; }
 
-    .container { max-width: 600px; margin: 0 auto; }
+    .main-wrapper { max-width: 720px; margin: 0 auto; }
 
-    /* Header */
-    .brand {
+    /* Header & Logo Styling */
+    .brand-header {
+      background: linear-gradient(135deg, #0b1329 0%, #1a2b4c 100%);
+      color: #ffffff;
+      padding: 35px 20px 25px 20px;
+      border-radius: var(--radius);
       text-align: center;
-      padding: 20px 0;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
+      border-bottom: 4px solid var(--gold);
+      position: relative;
     }
-    .brand h1 { color: var(--primary); font-weight: 800; font-size: 24px; }
-    .brand p { color: #64748b; font-size: 14px; margin-top: 4px; }
+    
+    .logo-wrapper {
+      display: inline-block;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    .brand-logo {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 3px solid var(--gold);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      transition: transform 0.3s ease;
+    }
+    .brand-logo:hover {
+      transform: scale(1.03);
+    }
 
-    /* Tabs Nav */
-    .tabs {
+    .brand-header h1 { 
+      font-size: 26px; 
+      font-weight: 800; 
+      margin-bottom: 6px; 
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    .brand-header p { 
+      font-size: 15px; 
+      color: #cbd5e1; 
+      font-weight: 500; 
+    }
+    .brand-header .contacts-bar {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* Tabs Navigation */
+    .tabs-nav {
       display: flex;
       background: #e2e8f0;
-      padding: 4px;
-      border-radius: 12px;
+      padding: 5px;
+      border-radius: var(--radius);
       margin-bottom: 20px;
+      gap: 5px;
     }
     .tab-btn {
       flex: 1;
-      padding: 12px;
+      padding: 14px 10px;
       border: none;
-      background: none;
-      border-radius: 8px;
-      font-weight: bold;
+      background: transparent;
+      border-radius: 10px;
+      font-weight: 700;
       font-size: 15px;
       cursor: pointer;
-      color: #64748b;
-      transition: 0.3s;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
     .tab-btn.active {
-      background: white;
-      color: var(--accent);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      background: #ffffff;
+      color: var(--primary-accent);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     }
 
-    /* Forms & Cards */
-    .form-card {
+    /* Card Panels */
+    .panel-card {
       background: var(--card-bg);
-      padding: 20px;
-      border-radius: 16px;
+      border-radius: var(--radius);
+      padding: 25px 20px;
       border: 1px solid var(--border);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
     }
-    
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Form Grid & Inputs */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    .full-width { grid-column: span 2; }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .full-width { grid-column: span 1; }
+    }
+
     .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; font-weight: bold; margin-bottom: 6px; font-size: 14px; }
-    
-    .input-control {
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #334155;
+    }
+    .form-group label span.req { color: var(--danger); margin-right: 3px; }
+
+    .form-control {
       width: 100%;
-      padding: 12px;
+      padding: 12px 14px;
       border: 1px solid var(--border);
       border-radius: 8px;
       font-size: 15px;
-      background: #fff;
+      background-color: #f8fafc;
+      color: var(--text-main);
       outline: none;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
     }
-    .input-control:focus { border-color: var(--accent); }
+    .form-control:focus {
+      border-color: var(--gold);
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+    }
+    textarea.form-control { resize: vertical; min-height: 90px; }
 
-    .btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 16px;
-      width: 100%;
+    /* Custom File Input Zone */
+    .file-drop-zone {
+      border: 2px dashed var(--gold);
+      background: #fdfbf7;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
       cursor: pointer;
-      margin-top: 10px;
+      transition: 0.2s;
     }
-    .btn:disabled { background: #94a3b8; }
+    .file-drop-zone:hover { background: #f7f0e3; }
+    .file-drop-zone p { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
 
-    /* Result Box */
-    .result-card {
-      background: #f1f5f9;
+    /* Buttons */
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      color: #ffffff;
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(30, 58, 138, 0.25);
+    }
+    .btn-submit:hover { opacity: 0.95; transform: translateY(-1px); }
+    .btn-submit:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
+
+    /* Success & Status Views */
+    .alert-box {
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .alert-success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    .alert-success h3 { font-size: 20px; margin-bottom: 8px; }
+    .app-id-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: #ffffff;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-size: 20px;
+      font-weight: 800;
+      margin: 12px 0;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3);
+    }
+
+    /* Search Result Card */
+    .status-card {
+      background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 15px;
+      padding: 18px;
       margin-top: 15px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-    .status-badge {
-      display: inline-block;
+    .status-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 6px;
+      background: var(--gold);
+    }
+    .status-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .status-pill {
       padding: 4px 12px;
-      background: var(--accent);
-      color: white;
       border-radius: 20px;
       font-size: 13px;
-      font-weight: bold;
+      font-weight: 700;
+      background: #fef3c7;
+      color: #92400e;
     }
-
-    /* Modal / Alert */
-    .alert-success {
-      background: #dcfce7;
-      color: #15803d;
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-      margin-top: 15px;
+    .info-row { font-size: 14px; margin-bottom: 6px; color: #334155; }
+    .info-row strong { color: var(--primary); }
+    .lawyer-note-box {
+      background: #f8fafc;
+      border-right: 3px solid var(--primary-accent);
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-top: 10px;
+      border-radius: 0 6px 6px 0;
     }
 
     .hidden { display: none !important; }
+    .loader { text-align: center; padding: 20px; font-weight: bold; color: var(--text-muted); }
   </style>
 </head>
 <body>
 
-<div class="container">
-  
-  <div class="brand">
-    <h1>مكتب آفاق للخدمات القانونية</h1>
-    <p>تقديم الطلبات وإدارة المعاملات عبر الإنترنت</p>
-  </div>
+<div class="main-wrapper">
 
-  <!-- التبديل بين القوائم -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('new-request')">تقديم طلب جديد</button>
-    <button class="tab-btn" onclick="switchTab('track-request')">تتبع حالة المعاملة</button>
-  </div>
-
-  <!-- قسم تقديم طلب جديد -->
-  <div id="new-request" class="tab-content">
-    <form id="client-form" class="form-card" onsubmit="submitForm(event)">
-      
-      <div class="form-group">
-        <label>الاسم الثلاثي *</label>
-        <input type="text" id="fullName" class="input-control" required placeholder="أدخل اسمك الكامل">
-      </div>
-
-      <div class="form-group">
-        <label>اسم الأم *</label>
-        <input type="text" id="motherName" class="input-control" required placeholder="اسم الأم الثلاثي">
-      </div>
-
-      <div class="form-group">
-        <label>الرقم الوطني / الرقم الشخصي</label>
-        <input type="text" id="nationalId" class="input-control" placeholder="أدخل الرقم الوطني">
-      </div>
-
-      <div class="form-group">
-        <label>رقم الهاتف / الواتساب *</label>
-        <input type="tel" id="phone" class="input-control" required placeholder="مثال: 0912345678">
-      </div>
-
-      <div class="form-group">
-        <label>مكان الإقامة الحالي</label>
-        <select id="residence" class="input-control">
-          <option value="داخل سوريا">داخل سوريا</option>
-          <option value="خارج سوريا">خارج سوريا</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>الخدمة الرئيسية *</label>
-        <select id="mainService" class="input-control" required onchange="updateSubServices()">
-          <option value="">اختر نوع الخدمة...</option>
-          <option value="معاملات تجنيس ونفوس">معاملات تجنيس ونفوس</option>
-          <option value="قضايا وعقارات">قضايا وعقارات</option>
-          <option value="توكيلات واستخراج وثائق">توكيلات واستخراج وثائق</option>
-          <option value="خدمات أخرى">خدمات أخرى</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>الخدمة الفرعية</label>
-        <select id="subService" class="input-control">
-          <option value="عام">عام / غير محدد</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>تفاصيل الطلب أو الشرح</label>
-        <textarea id="details" class="input-control" rows="3" placeholder="اكتب تفاصيل معاملتك هنا..."></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>مرفقات (صورة أو ملف PDF)</label>
-        <input type="file" id="fileInput" class="input-control" accept="image/*,.pdf">
-      </div>
-
-      <button type="submit" id="submit-btn" class="btn">إرسال الطلب الآن</button>
-
-      <div id="success-message" class="alert-success hidden"></div>
-    </form>
-  </div>
-
-  <!-- قسم تتبع حالة الطلب -->
-  <div id="track-request" class="tab-content hidden">
-    <div class="form-card">
-      <div class="form-group">
-        <label>أدخل رمز التتبع (رقم الطلب) أو رقم الهاتف *</label>
-        <input type="text" id="track-query" class="input-control" placeholder="مثال: AF-1024 أو 0912345678">
-      </div>
-      <button class="btn" onclick="trackStatus()">استعلام عن الطلب</button>
-
-      <div id="track-loading" class="hidden" style="text-align:center; margin-top:15px;">جاري البحث...</div>
-      <div id="track-result"></div>
+  <!-- الهيدر واللوغو الاحترافي -->
+  <header class="brand-header">
+    <div class="logo-wrapper">
+      <img src="logo.png" alt="مكتب آفاق للخدمات القانونية" class="brand-logo" onerror="this.src='https://via.placeholder.com/130/0f172a/c5a059?text=مكتب+آفاق'">
     </div>
-  </div>
+    <h1>مكتب آفاق للخدمات القانونية</h1>
+    <p>خدمات قانونية وتسيير كافة المعاملات والاستشارات بدقة ومهنية</p>
+    <div class="contacts-bar">
+      <span>📍 سوريا - دمشق</span>
+      <span>⏱️ أوقات الدوام: 9:00 ص - 5:00 م</span>
+    </div>
+  </header>
+
+  <!-- تبويبات التنقل -->
+  <nav class="tabs-nav">
+    <button class="tab-btn active" id="btn-tab-new" onclick="switchTab('tab-new')">
+      📝 تقديم طلب جديد
+    </button>
+    <button class="tab-btn" id="btn-tab-track" onclick="switchTab('tab-track')">
+      🔍 تتبع حالة معاملة
+    </button>
+  </nav>
+
+  <!-- 1. نموذج تقديم طلب جديد -->
+  <main id="tab-new" class="tab-content panel-card">
+    <div class="section-title">بيانات صاحـب المعاملة والطلب</div>
+    
+    <form id="main-request-form" onsubmit="handleFormSubmit(event)">
+      <div class="form-grid">
+        
+        <div class="form-group">
+          <label><span class="req">*</span>الاسم الثلاثي</label>
+          <input type="text" id="fullName" class="form-control" required placeholder="مثال: أحمد محمد العلي">
+        </div>
+
+        <div class="form-group">
+          <label><span class="req">*</span>اسم الأم الثلاثي</label>
+          <input type="text" id="motherName" class="form-control" required placeholder="مثال: فاطمة حسن الخالد">
+        </div>
+
+        <div class="form-group">
+          <label>اسم الأب</label>
+          <input type="text" id="fatherName" class="form-control" placeholder="اسم الأب الكامل">
+        </div>
+
+        <div class="form-group">
+          <label>الرقم الوطني / الشخصي</label>
+          <input type="text" id="nationalId" class="form-control" placeholder="11 رقم للتسجيل الرسمي">
+        </div>
+
+        <div class="form-group">
+          <label><span class="req">*</span>رقم الهاتف (الواتساب)</label>
+          <input type="tel" id="phone" class="form-control" required placeholder="مثال: 0912345678">
+        </div>
+
+        <div class="form-group">
+          <label>مكان الإقامة الحالي</label>
+          <select id="residence" class="form-control" onchange="toggleCountryField()">
+            <option value="داخل سوريا">داخل سوريا</option>
+            <option value="خارج سوريا">خارج سوريا (مغترب)</option>
+          </select>
+        </div>
+
+        <div class="form-group hidden" id="country-group">
+          <label>دولة الإقامة الحالية</label>
+          <input type="text" id="country" class="form-control" placeholder="مثال: الإمارات، تركيا، ألمانيا">
+        </div>
+
+        <div class="form-group">
+          <label><span class="req">*</span>نوع الخدمة الرئيسية</label>
+          <select id="mainService" class="form-control" required onchange="populateSubServices()">
+            <option value="">-- اختر نوع الخدمة --</option>
+            <option value="معاملات تجنيس ونفوس">معاملات الأحوال المدنية والنفوس</option>
+            <option value="قضايا وعقارات">العقارات والتوثيق العقاري</option>
+            <option value="توكيلات واستخراج وثائق">التوكيلات وتصديق الوثائق</option>
+            <option value="قضايا أسرية وأحوال شخصية">الأحوال الشخصية والشرعية</option>
+            <option value="استشارات قانونية عامة">استشارة قانونية أو قضائية</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>الخدمة الفرعية / التفصيلية</label>
+          <select id="subService" class="form-control">
+            <option value="عام / غير محدد">اختر الخدمة الرئيسية أولاً</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>درجة الأهمية / الاستعجال</label>
+          <select id="urgency" class="form-control">
+            <option value="عادي">عادي (ضمن أوقات العمل الرسمية)</option>
+            <option value="مستعجل">مستعجل</option>
+            <option value="طارئ جداً">طارئ جداً</option>
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label>تفاصيل المعاملة أو شرح الطلب</label>
+          <textarea id="details" class="form-control" placeholder="يرجى كتابة أي معلومات إضافية أو شرح مختصر للطلب لتسهيل المتابعة..."></textarea>
+        </div>
+
+        <div class="form-group full-width">
+          <label>المرفقات والوثائق (صورة أو ملف PDF)</label>
+          <div class="file-drop-zone" onclick="document.getElementById('fileInput').click()">
+            📁 اضغط هنا لإرفاق الهوية الشخصية أو المستندات المطلوبة
+            <p id="file-name-display">الملفات المسموحة: JPG, PNG, PDF (الحد الأقصى 10 ميغابايت)</p>
+          </div>
+          <input type="file" id="fileInput" class="hidden" accept="image/*,.pdf" onchange="updateFileName()">
+        </div>
+
+      </div>
+
+      <button type="submit" id="submit-btn" class="btn-submit">تأكيد وإرسال الطلب الآن</button>
+    </form>
+
+    <div id="submit-success" class="alert-box alert-success hidden"></div>
+  </main>
+
+  <!-- 2. قسم تتبع الحالة والاستعلام -->
+  <section id="tab-track" class="tab-content panel-card hidden">
+    <div class="section-title">تتبع حالة المعاملة برقم الطلب أو الهاتف</div>
+    
+    <div class="form-group">
+      <label>أدخل رقم الطلب (رمز التتبع) أو رقم الهاتف المسجل</label>
+      <div style="display: flex; gap: 10px;">
+        <input type="text" id="track-query" class="form-control" placeholder="مثال: AF-1024 أو 0912345678">
+        <button class="btn-submit" style="width: 120px; margin-top: 0;" onclick="executeTracking()">بحث</button>
+      </div>
+    </div>
+
+    <div id="track-loader" class="loader hidden">جاري استعلام البيانات من السجل...</div>
+    <div id="track-results-container"></div>
+  </section>
 
 </div>
 
@@ -224,28 +418,39 @@
   // رابط البرمجية الخاص بك
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGJteukHDM6wkRJiyxbJ7cQ8p-BhKPnVEjg3gyVJOxTyv6NfkD-O5NCK_9I-R5GOc3/exec";
 
-  // التبديل بين الأقسام
   function switchTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     
     document.getElementById(tabId).classList.remove('hidden');
-    event.target.classList.add('active');
+    if (tabId === 'tab-new') document.getElementById('btn-tab-new').classList.add('active');
+    if (tabId === 'tab-track') document.getElementById('btn-tab-track').classList.add('active');
   }
 
-  // تحديث الخدمات الفرعية تلقائياً
-  function updateSubServices() {
+  function toggleCountryField() {
+    const val = document.getElementById('residence').value;
+    const countryGrp = document.getElementById('country-group');
+    if (val === 'خارج سوريا') {
+      countryGrp.classList.remove('hidden');
+    } else {
+      countryGrp.classList.add('hidden');
+    }
+  }
+
+  function populateSubServices() {
     const main = document.getElementById('mainService').value;
     const sub = document.getElementById('subService');
     sub.innerHTML = '';
 
-    const options = {
-      "معاملات تجنيس ونفوس": ["إخراج قيد", "بيان عائلي", "تثبيت زواج", "تثبيت ولادة"],
-      "قضايا وعقارات": ["تثبيت ملكية", "عقد بيع", "دعوى قضائية", "استشارة عقارية"],
-      "توكيلات واستخراج وثائق": ["وكالة عامة", "وكالة خاصة", "تصديق أوراق من الخارجية", "جواز سفر"]
+    const dataMap = {
+      "معاملات تجنيس ونفوس": ["إخراج قيد فردي/عائلي", "تثبيت زواج / ولادة", "بيان طلاق / وفاة", "تصحيح أسماء وألقاب", "بدل ضائع هوية/دفتر عائلة"],
+      "قضايا وعقارات": ["تثبيت ملكية عقار (دعوى)", "عقود بيع وإيجار", "بيان قيد عقاري / مخطط", "مطابقة وتراخيص عقارية"],
+      "توكيلات واستخراج وثائق": ["وكالة عامة / خاصة", "تصديق أوراق من الخارجية", "استخراج وثيقة عدم محكوم", "جواز سفر جديد/تجديد"],
+      "قضايا أسرية وأحوال شخصية": ["دعوى نفقة / حضانة", "حصر إرث شرعي / قانوني", "تثبيت مخالعة أو طلاق"],
+      "استشارات قانونية عامة": ["استشارة خطية", "دراسة ملف قضائي", "صياغة عقود ورؤية قانونية"]
     };
 
-    const list = options[main] || ["عام"];
+    const list = dataMap[main] || ["عام / غير محدد"];
     list.forEach(item => {
       const opt = document.createElement('option');
       opt.value = item;
@@ -254,22 +459,31 @@
     });
   }
 
-  // إرسال الطلب
-  async function submitForm(e) {
+  function updateFileName() {
+    const fileInput = document.getElementById('fileInput');
+    const display = document.getElementById('file-name-display');
+    if (fileInput.files.length > 0) {
+      display.textContent = `📎 تم اختيار: ${fileInput.files[0].name}`;
+      display.style.color = "#16a34a";
+      display.style.fontWeight = "bold";
+    }
+  }
+
+  async function handleFormSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
-    const msg = document.getElementById('success-message');
+    const alertBox = document.getElementById('submit-success');
     
     btn.disabled = true;
-    btn.textContent = "جاري إرسال الطلب...";
-    msg.classList.add('hidden');
+    btn.textContent = "جاري رفع البيانات والمرفقات...";
+    alertBox.classList.add('hidden');
 
     const fileInput = document.getElementById('fileInput');
     let fileData = null;
 
     if (fileInput.files.length > 0) {
       const file = fileInput.files[0];
-      const base64 = await toBase64(file);
+      const base64 = await convertFileToBase64(file);
       fileData = {
         fileName: file.name,
         fileType: file.type,
@@ -280,11 +494,13 @@
     const payload = {
       fullName: document.getElementById('fullName').value,
       motherName: document.getElementById('motherName').value,
+      fatherName: document.getElementById('fatherName').value,
       nationalId: document.getElementById('nationalId').value,
       phone: document.getElementById('phone').value,
-      residence: document.getElementById('residence').value,
+      residence: document.getElementById('residence').value + (document.getElementById('country').value ? ` (${document.getElementById('country').value})` : ''),
       mainService: document.getElementById('mainService').value,
       subService: document.getElementById('subService').value,
+      urgency: document.getElementById('urgency').value,
       details: document.getElementById('details').value,
       fileData: fileData
     };
@@ -296,76 +512,80 @@
     .then(res => res.json())
     .then(res => {
       btn.disabled = false;
-      btn.textContent = "إرسال الطلب الآن";
+      btn.textContent = "تأكيد وإرسال الطلب الآن";
 
       if (res.success) {
-        msg.classList.remove('hidden');
-        msg.innerHTML = `
-          <h3>تم تقديم طلبك بنجاح! 🎉</h3>
-          <p style="margin-top:8px;">رمز التتبع الخاص بك هو: <strong style="font-size:18px; color:#1e293b;">${res.appId}</strong></p>
-          <p style="font-size:13px; margin-top:4px;">يرجى حفظ هذا الرقم للاستعلام عن حالة المعاملة لاحقاً.</p>
+        alertBox.classList.remove('hidden');
+        alertBox.innerHTML = `
+          <h3>تم استلام طلبك بنجاح! 🎉</h3>
+          <p>رمز التتبع الخاص بمعاملتك هو:</p>
+          <div class="app-id-tag">${res.appId}</div>
+          <p style="font-size: 13px; color: #475569;">احتفظ بهذا الرقم للاستعلام عن حالة المعاملة وموعد الاستلام عبر تبويب "تتبع حالة معاملة".</p>
         `;
-        document.getElementById('client-form').reset();
+        document.getElementById('main-request-form').reset();
+        document.getElementById('file-name-display').textContent = "الملفات المسموحة: JPG, PNG, PDF (الحد الأقصى 10 ميغابايت)";
+        document.getElementById('file-name-display').style.color = "#64748b";
       } else {
-        alert("حدث خطأ أثناء تقديم الطلب، يرجى المحاولة لاحقاً.");
+        alert("تعذر إرسال الطلب: " + (res.error || "خطأ غير معروف"));
       }
     })
     .catch(err => {
       btn.disabled = false;
-      btn.textContent = "إرسال الطلب الآن";
-      alert("تعذر الاتصال بالخادم، يرجى التحقق من الاتصال بالإنترنت.");
+      btn.textContent = "تأكيد وإرسال الطلب الآن";
+      alert("حدث خطأ في الاتصال بالسيرفر. يرجى إعادة المحاولة.");
     });
   }
 
-  // تحويل الملف إلى Base64
-  const toBase64 = file => new Promise((resolve, reject) => {
+  const convertFileToBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
   });
 
-  // تتبع حالة الطلب
-  function trackStatus() {
+  function executeTracking() {
     const query = document.getElementById('track-query').value.trim();
-    const resultDiv = document.getElementById('track-result');
-    const loading = document.getElementById('track-loading');
+    const container = document.getElementById('track-results-container');
+    const loader = document.getElementById('track-loader');
 
     if (!query) {
-      alert("يرجى إدخال رقم الطلب أو رقم الهاتف");
+      alert("يرجى إدخال رقم الطلب أو رقم الهاتف للاستعلام");
       return;
     }
 
-    resultDiv.innerHTML = '';
-    loading.classList.remove('hidden');
+    container.innerHTML = '';
+    loader.classList.remove('hidden');
 
     fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}`)
       .then(res => res.json())
       .then(res => {
-        loading.classList.add('hidden');
+        loader.classList.add('hidden');
         if (res.success && res.data.length > 0) {
           res.data.forEach(item => {
             const card = document.createElement('div');
-            card.className = 'result-card';
+            card.className = 'status-card';
             card.innerHTML = `
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                <strong>رقم الطلب: ${item.appId}</strong>
-                <span class="status-badge">${item.status}</span>
+              <div class="status-header">
+                <strong>رقم المعاملة: ${item.appId}</strong>
+                <span class="status-pill">${item.status}</span>
               </div>
-              <p style="font-size:14px; margin:4px 0;"><strong>صاحب الطلب:</strong> ${item.fullName}</p>
-              <p style="font-size:14px; margin:4px 0;"><strong>الخدمة:</strong> ${item.mainService} - ${item.subService}</p>
-              <p style="font-size:14px; margin:4px 0;"><strong>الموعد المتوقع:</strong> ${item.appointmentDate || 'قيد التحديد'}</p>
-              <p style="font-size:14px; margin:4px 0; color:#2563eb;"><strong>ملاحظات المكتب:</strong> ${item.lawyerNotes}</p>
+              <div class="info-row"><strong>الاسم:</strong> ${item.fullName}</div>
+              <div class="info-row"><strong>الخدمة:</strong> ${item.mainService} (${item.subService})</div>
+              <div class="info-row"><strong>الموعد المتوقع للإنجاز:</strong> ${item.appointmentDate || 'قيد التحديد والتنسيق'}</div>
+              <div class="lawyer-note-box">
+                <strong>ملاحظات المكتب:</strong><br>
+                ${item.lawyerNotes || 'تم استلام الطلب وبانتظار مراجعة الأوراق.'}
+              </div>
             `;
-            resultDiv.appendChild(card);
+            container.appendChild(card);
           });
         } else {
-          resultDiv.innerHTML = `<p style="text-align:center; color:#ef4444; margin-top:15px;">${res.message || 'لم يتم العثور على نتائج مطابقة'}</p>`;
+          container.innerHTML = `<p style="text-align:center; color: var(--danger); padding: 20px;">${res.message || 'لم يتم العثور على نتائج مطابقة لهذا الرقم'}</p>`;
         }
       })
       .catch(err => {
-        loading.classList.add('hidden');
-        alert("حدث خطأ أثناء جلب البيانات.");
+        loader.classList.add('hidden');
+        alert("خطأ أثناء جلب بيانات الاستعلام.");
       });
   }
 </script>
