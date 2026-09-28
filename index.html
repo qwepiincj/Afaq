@@ -4,154 +4,257 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مكتب أفاق | للخدمات القانونية وتسيير المعاملات</title>
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Cairo & Tajawal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            tajawal: ['Tajawal', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fffbebe6',
+              100: '#fef3c7',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            dark: {
+              bg: '#0b0f17',
+              card: '#131b2e',
+              surface: '#1c273e',
+              border: '#2a3a5c'
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    body { font-family: 'Tajawal', sans-serif; background-color: #0f172a; color: #f8fafc; }
-    .bg-navy { background-color: #1e293b; }
-    .gold-text { color: #f59e0b; }
-    .gold-bg { background-color: #f59e0b; }
-    .gold-border { border-color: #f59e0b; }
+    body { font-family: 'Cairo', sans-serif; background-color: #0b0f17; color: #f8fafc; }
+    .glass-card {
+      background: rgba(19, 27, 46, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-effect {
+      box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+    }
+    .glow-effect-lg {
+      box-shadow: 0 0 50px -10px rgba(245, 158, 11, 0.15);
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-black">
 
-  <!-- الهيدر والترويسة -->
-  <header class="bg-navy border-b border-slate-700 py-6 px-4 shadow-xl sticky top-0 z-50">
+  <!-- خلفية تفاعلية تتضمن تدرجاً ناعماً -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 right-0 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="glass-card sticky top-0 z-50 border-b border-slate-800/80 px-4 py-4">
     <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div class="text-center sm:text-right">
-        <h1 class="text-3xl font-extrabold gold-text tracking-wide">مكتب أفاق</h1>
-        <p class="text-xs text-slate-400 mt-1">تسيير المعاملات القانونية وحجز المنصات الحكومية</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center shadow-lg text-slate-950">
+          <i data-lucide="scale" class="w-6 h-6 stroke-[2.5]"></i>
+        </div>
+        <div>
+          <h1 class="text-2xl font-black tracking-tight text-white flex items-center gap-2">
+            مكتب <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-amber-200">أفاق</span>
+          </h1>
+          <p class="text-[11px] text-slate-400 font-medium">للخدمات القانونية والتنفيذية وتسيير المعاملات</p>
+        </div>
       </div>
       
-      <!-- أزرار التنقل -->
-      <div class="flex gap-2 bg-slate-900/80 p-1.5 rounded-xl border border-slate-700">
-        <button id="tab-apply-btn" onclick="switchTab('apply')" class="px-5 py-2 rounded-lg text-sm font-bold transition gold-bg text-slate-950 shadow-md">تقديم طلب جديد</button>
-        <button id="tab-track-btn" onclick="switchTab('track')" class="px-5 py-2 rounded-lg text-sm font-bold transition text-slate-300 hover:text-white">تتبع معاملة</button>
+      <!-- أزرار التبويب -->
+      <div class="flex p-1 bg-slate-950/60 rounded-xl border border-slate-800/80 w-full sm:w-auto">
+        <button id="tab-apply-btn" onclick="switchTab('apply')" class="flex-1 sm:flex-none px-5 py-2.5 rounded-lg text-xs font-bold transition-all duration-200 bg-gradient-to-r from-brand-500 to-amber-500 text-slate-950 shadow-md flex items-center justify-center gap-2">
+          <i data-lucide="file-plus" class="w-4 h-4"></i>
+          تقديم طلب جديد
+        </button>
+        <button id="tab-track-btn" onclick="switchTab('track')" class="flex-1 sm:flex-none px-5 py-2.5 rounded-lg text-xs font-bold transition-all duration-200 text-slate-400 hover:text-white flex items-center justify-center gap-2">
+          <i data-lucide="search" class="w-4 h-4"></i>
+          تتبع معاملة
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- المحتوى الرئيسي -->
-  <main class="max-w-3xl w-full mx-auto p-4 flex-grow my-6">
+  <!-- Main Container -->
+  <main class="max-w-3xl w-full mx-auto p-4 flex-grow my-6 z-10">
 
-    <!-- 1. نموذج تقديم طلب جديد -->
-    <section id="section-apply" class="bg-navy rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-700">
-      <div class="border-b border-slate-700 pb-4 mb-6">
-        <h2 class="text-2xl font-bold gold-text">تقديم طلب جديد</h2>
-        <p class="text-xs text-slate-400 mt-1">أدخل البيانات بدقة ليتم تسيير معاملتك وحجز الموعد أصولاً</p>
+    <!-- 1. Apply Form -->
+    <section id="section-apply" class="glass-card rounded-3xl p-6 sm:p-10 shadow-2xl relative">
+      <div class="flex items-center gap-3 pb-6 mb-6 border-b border-slate-800/80">
+        <div class="p-3 bg-brand-500/10 rounded-2xl text-brand-400 border border-brand-500/20">
+          <i data-lucide="file-text" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-white">تقديم طلب جديد</h2>
+          <p class="text-xs text-slate-400 mt-0.5">يرجى تعبئة الحقول المطلوبة بدقة لإنهاء الإجراءات الرسمية</p>
+        </div>
       </div>
 
-      <form id="apply-form" onsubmit="submitApplication(event)" class="space-y-5">
+      <form id="apply-form" onsubmit="submitApplication(event)" class="space-y-6">
         
-        <!-- البيانات الشخصية -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-medium mb-1.5 text-slate-300">الاسم الثلاثي <span class="text-red-400">*</span></label>
-            <input type="text" id="fullName" required placeholder="مثال: أحمد محمد علي" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition">
+        <!-- Fieldset: البيانات الشخصية -->
+        <div class="space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-brand-400/90 flex items-center gap-1.5">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i> البيانات الشخصية
+          </h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium mb-2 text-slate-300">الاسم الثلاثي <span class="text-rose-400">*</span></label>
+              <input type="text" id="fullName" required placeholder="مثال: أحمد محمد علي" class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+            </div>
+            <div>
+              <label class="block text-xs font-medium mb-2 text-slate-300">اسم الأم <span class="text-rose-400">*</span></label>
+              <input type="text" id="motherName" required placeholder="مثال: فاطمة" class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+            </div>
           </div>
-          <div>
-            <label class="block text-sm font-medium mb-1.5 text-slate-300">اسم الأم <span class="text-red-400">*</span></label>
-            <input type="text" id="motherName" required placeholder="مثال: فاطمة" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition">
-          </div>
-        </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-medium mb-1.5 text-slate-300">الرقم الوطني (11 رقم) <span class="text-red-400">*</span></label>
-            <input type="text" id="nationalId" required maxlength="11" placeholder="01010000000" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition" dir="ltr">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium mb-2 text-slate-300">الرقم الوطني <span class="text-rose-400">*</span></label>
+              <input type="text" id="nationalId" required maxlength="11" placeholder="01010000000" class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition tracking-wider" dir="ltr">
+            </div>
+            <div>
+              <label class="block text-xs font-medium mb-2 text-slate-300">رقم الهاتف / واتساب <span class="text-rose-400">*</span></label>
+              <input type="tel" id="phone" required placeholder="09xxxxxxxx" class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition tracking-wider" dir="ltr">
+            </div>
           </div>
-          <div>
-            <label class="block text-sm font-medium mb-1.5 text-slate-300">رقم الهاتف / الواتساب <span class="text-red-400">*</span></label>
-            <input type="tel" id="phone" required placeholder="09xxxxxxxx" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition" dir="ltr">
-          </div>
-        </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-1.5 text-slate-300">مكان الإقامة <span class="text-red-400">*</span></label>
-          <select id="residence" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition">
-            <option value="داخل سوريا">داخل سوريا</option>
-            <option value="خارج سوريا (مغترب)">خارج سوريا (مغترب)</option>
-          </select>
-        </div>
-
-        <!-- تفاصيل المعاملة -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium mb-1.5 text-slate-300">الخدمة الرئيسية <span class="text-red-400">*</span></label>
-            <select id="mainService" required onchange="updateSubServices()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition">
-              <option value="">-- اختر الخدمة --</option>
-              <option value="جوازات سفر">جوازات سفر</option>
-              <option value="مركبات وسيارات">مركبات وسيارات</option>
-              <option value="وكالات واستشارات">وكالات واستشارات</option>
-              <option value="أوراق ثبوتية ونفوس">أوراق ثبوتية ونفوس</option>
+            <label class="block text-xs font-medium mb-2 text-slate-300">مكان الإقامة <span class="text-rose-400">*</span></label>
+            <select id="residence" required class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition">
+              <option value="داخل سوريا">داخل سوريا</option>
+              <option value="خارج سوريا (مغترب)">خارج سوريا (مغترب)</option>
             </select>
           </div>
+        </div>
+
+        <hr class="border-slate-800/80 my-2">
+
+        <!-- Fieldset: تفاصيل المعاملة -->
+        <div class="space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-brand-400/90 flex items-center gap-1.5">
+            <i data-lucide="briefcase" class="w-3.5 h-3.5"></i> تفاصيل الخدمة
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium mb-2 text-slate-300">الخدمة الرئيسية <span class="text-rose-400">*</span></label>
+              <select id="mainService" required class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition">
+                <option value="">-- اختر الخدمة --</option>
+                <option value="جوازات سفر">جوازات سفر</option>
+                <option value="مركبات وسيارات">مركبات وسيارات</option>
+                <option value="وكالات واستشارات">وكالات واستشارات</option>
+                <option value="أوراق ثبوتية ونفوس">أوراق ثبوتية ونفوس</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium mb-2 text-slate-300">نوع المعاملة الفرعية <span class="text-rose-400">*</span></label>
+              <input type="text" id="subService" required placeholder="مثال: جواز فوري / نقل ملكية" class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+            </div>
+          </div>
+
           <div>
-            <label class="block text-sm font-medium mb-1.5 text-slate-300">نوع المعاملة الفرعية <span class="text-red-400">*</span></label>
-            <input type="text" id="subService" required placeholder="مثال: جواز فوري / نقل ملكية سيارة" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition">
+            <label class="block text-xs font-medium mb-2 text-slate-300">تفاصيل أضافية / أرقام مرجعية</label>
+            <textarea id="details" rows="2" placeholder="أدخل أية أرقام مرجعية، تفاصيل لوحة، أو ملاحظات خاصة بالطلب..." class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition resize-none"></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium mb-2 text-slate-300">رابط الصور / الوثائق</label>
+              <input type="url" id="driveLink" placeholder="https://drive.google.com/..." class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition" dir="ltr">
+            </div>
+            <div>
+              <label class="block text-xs font-medium mb-2 text-slate-300">طريقة الدفع المفضلة</label>
+              <select id="paymentMethod" class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition">
+                <option value="شام كاش">شام كاش</option>
+                <option value="سيريتل كاش">سيريتل كاش</option>
+                <option value="نقدي في المكتب">نقدي في المكتب</option>
+                <option value="تحويل خارجي">تحويل خارجي</option>
+              </select>
+            </div>
           </div>
         </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-1.5 text-slate-300">تفاصيل المعاملة / أرقام مرجعية</label>
-          <textarea id="details" rows="2" placeholder="مثال: رقم اللوحة + المحافظة للسيارات، أو مكان استلام الجواز..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition"></textarea>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium mb-1.5 text-slate-300">رابط الصور / الهوية (Google Drive أو رابط مباشر)</label>
-          <input type="url" id="driveLink" placeholder="https://drive.google.com/..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition" dir="ltr">
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium mb-1.5 text-slate-300">طريقة الدفع المفضلـة</label>
-          <select id="paymentMethod" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500 transition">
-            <option value="شام كاش">شام كاش</option>
-            <option value="سيريتل كاش">سيريتل كاش</option>
-            <option value="نقدي في المكتب">نقدي في المكتب</option>
-            <option value="تحويل خارجي">تحويل خارجي</option>
-          </select>
-        </div>
-
-        <button type="submit" id="submit-btn" class="w-full gold-bg hover:bg-amber-600 font-bold py-4 rounded-xl transition shadow-lg text-slate-950 text-lg mt-4">إرسال الطلب الآن</button>
+        <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-brand-500 via-amber-500 to-brand-600 hover:from-brand-400 hover:to-amber-500 text-slate-950 font-black py-4 rounded-xl transition duration-300 shadow-lg glow-effect flex items-center justify-center gap-2 text-base mt-8">
+          <i data-lucide="send" class="w-5 h-5"></i>
+          إرسال الطلب الآن
+        </button>
       </form>
 
-      <!-- بطاقة النتيجة عند التقديم -->
-      <div id="apply-result" class="hidden mt-6 p-6 rounded-2xl bg-slate-900 border gold-border text-center shadow-inner">
-        <div class="text-4xl mb-3">✅</div>
-        <h3 class="text-xl font-bold text-green-400 mb-1" id="apply-success-msg">تم تقديم طلبك بنجاح!</h3>
-        <p class="text-sm text-slate-300">رقم الطلب الخاص بك لمتابعة المعاملة:</p>
-        <div class="text-3xl font-extrabold gold-text my-3 tracking-widest bg-slate-950/60 py-2 px-4 rounded-xl inline-block border border-slate-800" id="created-app-id">AF-1001</div>
-        <p class="text-xs text-slate-400 block">يرجى حفظ رقم الطلب للاستعلام عن التحديثات والمواعيد.</p>
+      <!-- Result Card -->
+      <div id="apply-result" class="hidden mt-8 p-6 rounded-2xl bg-slate-950/90 border border-brand-500/40 text-center shadow-2xl relative overflow-hidden">
+        <div class="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/20">
+          <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-1" id="apply-success-msg">تم استقبال طلبك بنجاح</h3>
+        <p class="text-xs text-slate-400 mb-4">احفظ رقم المراجعة التالي لمتابعة المستجدات وحالة الموعد</p>
+        
+        <div class="inline-flex items-center gap-3 bg-slate-900 border border-slate-800 px-6 py-3 rounded-xl mb-4">
+          <span class="text-2xl font-black text-brand-400 tracking-widest" id="created-app-id">AF-1001</span>
+          <button onclick="copyAppId()" class="text-slate-400 hover:text-white transition p-1" title="نسخ الرقم">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <p class="text-[11px] text-slate-500 block">يمكنك الانتقال إلى تبويب "تتبع معاملة" لمتابعة التقدم مباشرة.</p>
       </div>
     </section>
 
-    <!-- 2. قسم تتبع المعاملة -->
-    <section id="section-track" class="hidden bg-navy rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-700">
-      <div class="border-b border-slate-700 pb-4 mb-6">
-        <h2 class="text-2xl font-bold gold-text">تتبع حالة المعاملة</h2>
-        <p class="text-xs text-slate-400 mt-1">أدخل رقم الطلب أو رقم الهاتف للاستعلام فوراً</p>
+    <!-- 2. Tracking Section -->
+    <section id="section-track" class="hidden glass-card rounded-3xl p-6 sm:p-10 shadow-2xl">
+      <div class="flex items-center gap-3 pb-6 mb-6 border-b border-slate-800/80">
+        <div class="p-3 bg-brand-500/10 rounded-2xl text-brand-400 border border-brand-500/20">
+          <i data-lucide="radar" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-white">تتبع حالة المعاملة</h2>
+          <p class="text-xs text-slate-400 mt-0.5">أدخل رقم الطلب الخاص بك أو رقم الهاتف المحفوظ لاستعلام دقيق</p>
+        </div>
       </div>
       
-      <div class="flex flex-col sm:flex-row gap-3 mb-6">
-        <input type="text" id="trackQuery" placeholder="أدخل رقم الطلب (AF-1001) أو رقم الهاتف" class="flex-grow bg-slate-900 border border-slate-700 rounded-xl p-3.5 text-white focus:outline-none focus:border-amber-500 transition">
-        <button onclick="trackApplication()" id="track-btn" class="gold-bg hover:bg-amber-600 text-slate-950 px-8 py-3.5 rounded-xl font-bold transition shadow-md">استعلام</button>
+      <div class="flex flex-col sm:flex-row gap-3 mb-8">
+        <div class="relative flex-grow">
+          <input type="text" id="trackQuery" placeholder="أدخل رقم الطلب (مثال: AF-1001) أو رقم الهاتف..." class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3.5 pr-10 text-sm text-white focus:outline-none focus:border-brand-500 transition">
+          <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute top-4 right-3.5"></i>
+        </div>
+        <button onclick="trackApplication()" id="track-btn" class="bg-gradient-to-r from-brand-500 to-amber-500 text-slate-950 px-8 py-3.5 rounded-xl font-black text-sm transition hover:brightness-110 shadow-md flex items-center justify-center gap-2">
+          <span>استعلام</span>
+        </button>
       </div>
 
-      <!-- نتائـج البحث -->
+      <!-- Result View -->
       <div id="track-results" class="space-y-4"></div>
     </section>
 
   </main>
 
-  <!-- الفوتر -->
-  <footer class="bg-navy border-t border-slate-800 py-4 text-center text-xs text-slate-500">
-    جميع الحقوق محفوظة © مكتب أفاق للخدمات القانونية وتسيير المعاملات
+  <!-- Footer -->
+  <footer class="glass-card border-t border-slate-800/80 py-6 text-center text-xs text-slate-500 mt-auto">
+    <p>جميع الحقوق محفوظة © مكتب أفاق للخدمات القانونية وتسيير المعاملات</p>
   </footer>
 
   <script>
-    // 🔗 رابط الـ Web App الخاص بك
+    // تهيئة Lucide Icons
+    lucide.createIcons();
+
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0gSLZWy9BoYTQ6y3ZR3C-6o2t-Ghxkx_shM-_FR5pwFrk2aE7IrfP5YA2Gw6yqbtj/exec";
 
     function switchTab(tab) {
@@ -163,13 +266,13 @@
       if (tab === 'apply') {
         applySection.classList.remove('hidden');
         trackSection.classList.add('hidden');
-        applyBtn.className = "px-5 py-2 rounded-lg text-sm font-bold transition gold-bg text-slate-950 shadow-md";
-        trackBtn.className = "px-5 py-2 rounded-lg text-sm font-bold transition text-slate-300 hover:text-white";
+        applyBtn.className = "flex-1 sm:flex-none px-5 py-2.5 rounded-lg text-xs font-bold transition-all duration-200 bg-gradient-to-r from-brand-500 to-amber-500 text-slate-950 shadow-md flex items-center justify-center gap-2";
+        trackBtn.className = "flex-1 sm:flex-none px-5 py-2.5 rounded-lg text-xs font-bold transition-all duration-200 text-slate-400 hover:text-white flex items-center justify-center gap-2";
       } else {
         applySection.classList.add('hidden');
         trackSection.classList.remove('hidden');
-        trackBtn.className = "px-5 py-2 rounded-lg text-sm font-bold transition gold-bg text-slate-950 shadow-md";
-        applyBtn.className = "px-5 py-2 rounded-lg text-sm font-bold transition text-slate-300 hover:text-white";
+        trackBtn.className = "flex-1 sm:flex-none px-5 py-2.5 rounded-lg text-xs font-bold transition-all duration-200 bg-gradient-to-r from-brand-500 to-amber-500 text-slate-950 shadow-md flex items-center justify-center gap-2";
+        applyBtn.className = "flex-1 sm:flex-none px-5 py-2.5 rounded-lg text-xs font-bold transition-all duration-200 text-slate-400 hover:text-white flex items-center justify-center gap-2";
       }
     }
 
@@ -177,7 +280,8 @@
       e.preventDefault();
       const btn = document.getElementById('submit-btn');
       btn.disabled = true;
-      btn.innerText = "جاري إرسال البيانات...";
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> جاري معالجة الطلب...`;
+      lucide.createIcons();
 
       const payload = {
         fullName: document.getElementById('fullName').value,
@@ -205,6 +309,7 @@
           document.getElementById('apply-form').reset();
           document.getElementById('created-app-id').innerText = res.appId;
           document.getElementById('apply-result').classList.remove('hidden');
+          document.getElementById('apply-result').scrollIntoView({ behavior: 'smooth' });
         } else {
           alert('حدث خطأ أثناء الإرسال: ' + res.error);
         }
@@ -212,7 +317,8 @@
         alert('تم إرسال الطلب، يرجى حفظ رقم التتبع عند تحديث الصفحة.');
       } finally {
         btn.disabled = false;
-        btn.innerText = "إرسال الطلب الآن";
+        btn.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i> إرسال الطلب الآن`;
+        lucide.createIcons();
       }
     }
 
@@ -227,8 +333,14 @@
       }
 
       btn.disabled = true;
-      btn.innerText = "جاري البحث...";
-      container.innerHTML = '<p class="text-center text-slate-400 py-6">جاري التحقق من حالة المعاملة في غوغل شيت...</p>';
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>`;
+      container.innerHTML = `
+        <div class="text-center py-10 space-y-3">
+          <i data-lucide="refresh-cw" class="w-8 h-8 animate-spin text-brand-400 mx-auto"></i>
+          <p class="text-xs text-slate-400">جاري الاتصال بقاعدة البيانات واسترجاع معلومات المعاملة...</p>
+        </div>
+      `;
+      lucide.createIcons();
 
       try {
         const response = await fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}`);
@@ -236,32 +348,68 @@
 
         if (res.success && res.data.length > 0) {
           container.innerHTML = res.data.map(item => `
-            <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 space-y-3 shadow-md">
-              <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <span class="font-extrabold gold-text text-xl tracking-wider">${item.appId}</span>
-                <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40">${item.status}</span>
+            <div class="bg-slate-950/80 p-6 rounded-2xl border border-slate-800 space-y-4 shadow-xl">
+              <div class="flex justify-between items-center border-b border-slate-800/80 pb-3">
+                <div>
+                  <span class="text-xs text-slate-500 block">رقم الطلب</span>
+                  <span class="font-black text-brand-400 text-xl tracking-wider">${item.appId}</span>
+                </div>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  ${item.status || 'قيد المعالجة'}
+                </span>
               </div>
-              <div class="text-sm space-y-1.5">
-                <p><span class="text-slate-400">صاحب المعاملة:</span> ${item.fullName}</p>
-                <p><span class="text-slate-400">نوع الخدمة:</span> ${item.mainService} (${item.subService})</p>
-                <p><span class="text-slate-400">تاريخ الموعد/الإنجاز:</span> <span class="font-bold text-green-400">${item.appointmentDate || 'لم يحدد بعد'}</span></p>
-                <p><span class="text-slate-400">تاريخ التقديم:</span> ${item.date}</p>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-800/50">
+                  <span class="text-slate-500 block mb-0.5">صاحب المعاملة</span>
+                  <span class="text-slate-200 font-medium">${item.fullName}</span>
+                </div>
+                <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-800/50">
+                  <span class="text-slate-500 block mb-0.5">نوع الخدمة</span>
+                  <span class="text-slate-200 font-medium">${item.mainService} (${item.subService})</span>
+                </div>
+                <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-800/50">
+                  <span class="text-slate-500 block mb-0.5">تاريخ الموعد / الإنجاز</span>
+                  <span class="text-emerald-400 font-bold">${item.appointmentDate || 'لم يحدد بعد'}</span>
+                </div>
+                <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-800/50">
+                  <span class="text-slate-500 block mb-0.5">تاريخ تقديم الطلب</span>
+                  <span class="text-slate-300">${item.date || '-'}</span>
+                </div>
               </div>
-              <div class="bg-slate-950/80 p-3.5 rounded-xl text-sm border-r-4 border-amber-500 mt-2">
-                <p class="text-xs text-slate-400 mb-1 font-bold">ملاحظات المحامي / المكتب:</p>
-                <p class="text-slate-200">${item.lawyerNotes}</p>
+
+              <div class="bg-slate-900/90 p-4 rounded-xl text-xs border-r-4 border-brand-500 space-y-1">
+                <span class="text-brand-400 font-bold block flex items-center gap-1">
+                  <i data-lucide="message-square-code" class="w-3.5 h-3.5"></i> ملاحظات المكتب
+                </span>
+                <p class="text-slate-300 leading-relaxed">${item.lawyerNotes || 'لا توجد ملاحظات إضافية حالياً.'}</p>
               </div>
             </div>
           `).join('');
         } else {
-          container.innerHTML = `<div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-center text-red-400">${res.message || 'لم يتم العثور على نتائج'}</div>`;
+          container.innerHTML = `
+            <div class="p-6 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-center text-rose-300 text-xs">
+              ${res.message || 'لم يتم العثور على أية سجلات مطابقة لرقم البحث.'}
+            </div>
+          `;
         }
       } catch (err) {
-        container.innerHTML = '<div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-center text-red-400">حدث خطأ أثناء جلب البيانات</div>';
+        container.innerHTML = `
+          <div class="p-6 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-center text-rose-300 text-xs">
+            حدث خطأ أثناء جلب البيانات، يرجى المحاولة لاحقاً.
+          </div>
+        `;
       } finally {
         btn.disabled = false;
-        btn.innerText = "استعلام";
+        btn.innerHTML = `<span>استعلام</span>`;
+        lucide.createIcons();
       }
+    }
+
+    function copyAppId() {
+      const idText = document.getElementById('created-app-id').innerText;
+      navigator.clipboard.writeText(idText);
+      alert('تم نسخ رقم الطلب: ' + idText);
     }
   </script>
 </body>
