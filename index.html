@@ -3,8 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- عنوان الصفحة ووصف SEO -->
   <title>مكتب آفاق للخدمات القانونية وتسيير المعاملات</title>
+  <meta name="description" content="خدمات قانونية وتسيير كافة المعاملات والاستشارات بدقة ومهنية في دمشق وسوريا">
+
+  <!-- أيقونة الموقع في تبويب المتصفح (Favicon) -->
+  <link rel="icon" type="image/jpeg" href="IMG_3679.jpeg">
+
+  <!-- بطاقة المعاينة للواتساب وفيسبوك (Open Graph) -->
+  <meta property="og:title" content="مكتب آفاق للخدمات القانونية">
+  <meta property="og:description" content="خدمات قانونية وتسيير كافة المعاملات والاستشارات بدقة ومهنية">
+  <meta property="og:image" content="IMG_3679.jpeg">
+  <meta property="og:type" content="website">
+
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  
   <style>
     :root {
       --primary: #0f172a;
@@ -22,6 +36,7 @@
     }
 
     * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body { background-color: var(--bg); color: var(--text-main); padding: 20px 10px; direction: rtl; line-height: 1.6; }
 
     .main-wrapper { max-width: 720px; margin: 0 auto; }
@@ -77,6 +92,7 @@
       font-size: 13px;
       color: var(--gold);
       font-weight: 700;
+      flex-wrap: wrap;
     }
 
     /* Tabs Navigation */
@@ -270,6 +286,39 @@
       border-radius: 0 6px 6px 0;
     }
 
+    /* Floating WhatsApp Button */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #25d366;
+      color: #fff;
+      border-radius: 50px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+      text-decoration: none;
+      z-index: 999;
+      transition: transform 0.2s ease;
+    }
+    .whatsapp-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 15px 0;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid #e2e8f0;
+    }
+
     .hidden { display: none !important; }
     .loader { text-align: center; padding: 20px; font-weight: bold; color: var(--text-muted); }
   </style>
@@ -281,7 +330,7 @@
   <!-- الهيدر واللوغو الاحترافي -->
   <header class="brand-header">
     <div class="logo-wrapper">
-      <img src="logo.png" alt="مكتب آفاق للخدمات القانونية" class="brand-logo" onerror="this.src='https://via.placeholder.com/130/0f172a/c5a059?text=مكتب+آفاق'">
+      <img src="IMG_3679.jpeg" alt="مكتب آفاق للخدمات القانونية" class="brand-logo" onerror="this.src='https://via.placeholder.com/130/0f172a/c5a059?text=مكتب+آفاق'">
     </div>
     <h1>مكتب آفاق للخدمات القانونية</h1>
     <p>خدمات قانونية وتسيير كافة المعاملات والاستشارات بدقة ومهنية</p>
@@ -412,10 +461,19 @@
     <div id="track-results-container"></div>
   </section>
 
+  <!-- تذييل الصفحة -->
+  <footer class="footer">
+    <p>جميع الحقوق محفوظة © مكتب آفاق للخدمات القانونية والتسيير</p>
+  </footer>
+
 </div>
 
+<!-- زر الواتساب العائم (يمكنك تغيير الرقم أدناه برقم الواتساب الخاص بك) -->
+<a href="https://wa.me/963912345678" target="_blank" class="whatsapp-btn" title="تواصل عبر الواتساب">
+  💬 تواصل معنا
+</a>
+
 <script>
-  // رابط البرمجية الخاص بك
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGJteukHDM6wkRJiyxbJ7cQ8p-BhKPnVEjg3gyVJOxTyv6NfkD-O5NCK_9I-R5GOc3/exec";
 
   function switchTab(tabId) {
