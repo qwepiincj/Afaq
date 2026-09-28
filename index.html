@@ -3,712 +3,372 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مكتب أفاق | للخدمات القانونية وتسيير المعاملات</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Cairo -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            cairo: ['Cairo', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#fffbebe6',
-              100: '#fef3c7',
-              400: '#fbbf24',
-              500: '#f59e0b',
-              600: '#d97706',
-              700: '#b45309',
-            },
-            dark: {
-              bg: '#05080f',
-              card: 'rgba(15, 23, 42, 0.6)',
-              surface: '#1e293b',
-              border: 'rgba(255, 255, 255, 0.08)'
-            }
-          },
-          animation: {
-            'blob': 'blob 10s infinite',
-            'fade-in': 'fadeIn 0.4s ease-out forwards',
-            'slide-up': 'slideUp 0.5s ease-out forwards',
-          },
-          keyframes: {
-            blob: {
-              '0%': { transform: 'translate(0px, 0px) scale(1)' },
-              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-              '100%': { transform: 'translate(0px, 0px) scale(1)' },
-            },
-            fadeIn: {
-              '0%': { opacity: '0' },
-              '100%': { opacity: '1' },
-            },
-            slideUp: {
-              '0%': { opacity: '0', transform: 'translateY(20px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
-  
+  <title>مكتب آفاق - الخدمات القانونية والمعاملات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
-    body { 
-      font-family: 'Cairo', sans-serif; 
-      background-color: #05080f; 
-      color: #f8fafc;
-      overflow-x: hidden;
+    :root {
+      --primary: #1e293b;
+      --accent: #2563eb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --border: #cbd5e1;
+      --success: #16a34a;
     }
 
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #05080f; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+    * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
+    body { background-color: var(--bg); color: var(--text); padding: 15px; direction: rtl; }
 
-    .glass-card {
-      background: rgba(13, 20, 36, 0.6);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    .container { max-width: 600px; margin: 0 auto; }
+
+    /* Header */
+    .brand {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .brand h1 { color: var(--primary); font-weight: 800; font-size: 24px; }
+    .brand p { color: #64748b; font-size: 14px; margin-top: 4px; }
+
+    /* Tabs Nav */
+    .tabs {
+      display: flex;
+      background: #e2e8f0;
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      color: #64748b;
+      transition: 0.3s;
+    }
+    .tab-btn.active {
+      background: white;
+      color: var(--accent);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    /* Forms & Cards */
+    .form-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
     
-    .glass-input {
-      background: rgba(15, 23, 42, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-    }
-
-    .tab-active {
-      background: linear-gradient(to right, #f59e0b, #fbbf24);
-      color: #05080f !important;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-    }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-weight: bold; margin-bottom: 6px; font-size: 14px; }
     
-    .tab-inactive {
-      background: transparent;
-      color: #94a3b8;
+    .input-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      background: #fff;
+      outline: none;
     }
-    
-    .tab-inactive:hover {
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
+    .input-control:focus { border-color: var(--accent); }
+
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn:disabled { background: #94a3b8; }
+
+    /* Result Box */
+    .result-card {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--accent);
+      color: white;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
     }
 
-    .input-group:focus-within label { color: #fbbf24; }
-    .input-group:focus-within i { color: #fbbf24; }
+    /* Modal / Alert */
+    .alert-success {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 15px;
+    }
 
-    .ticket-cut {
-      position: relative;
-    }
-    .ticket-cut::before, .ticket-cut::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 24px;
-      height: 24px;
-      background-color: #05080f;
-      border-radius: 50%;
-      transform: translateY(-50%);
-    }
-    .ticket-cut::before { left: -12px; }
-    .ticket-cut::after { right: -12px; }
+    .hidden { display: none !important; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-brand-500 selection:text-black">
+<body>
 
-  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-brand-600/10 rounded-full blur-[100px] mix-blend-screen animate-blob"></div>
-    <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-2000"></div>
-    <div class="absolute top-[40%] left-[20%] w-[300px] h-[300px] bg-purple-600/10 rounded-full blur-[90px] mix-blend-screen animate-blob animation-delay-4000"></div>
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgNDBoNDBNNDAgMHY0MCIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDIpIiBzdHJva2Utd2lkdGg9IjEiLz4KPC9zdmc+')] opacity-50"></div>
+<div class="container">
+  
+  <div class="brand">
+    <h1>مكتب آفاق للخدمات القانونية</h1>
+    <p>تقديم الطلبات وإدارة المعاملات عبر الإنترنت</p>
   </div>
 
-  <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-4xl z-50 glass-card rounded-2xl px-5 py-3 flex flex-col sm:flex-row justify-between items-center gap-4 transition-all duration-300">
-    <div class="flex items-center gap-4">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.3)] text-slate-950 relative overflow-hidden group">
-        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-        <i data-lucide="scale" class="w-6 h-6 stroke-[2.5] relative z-10"></i>
+  <!-- التبديل بين القوائم -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('new-request')">تقديم طلب جديد</button>
+    <button class="tab-btn" onclick="switchTab('track-request')">تتبع حالة المعاملة</button>
+  </div>
+
+  <!-- قسم تقديم طلب جديد -->
+  <div id="new-request" class="tab-content">
+    <form id="client-form" class="form-card" onsubmit="submitForm(event)">
+      
+      <div class="form-group">
+        <label>الاسم الثلاثي *</label>
+        <input type="text" id="fullName" class="input-control" required placeholder="أدخل اسمك الكامل">
       </div>
-      <div>
-        <h1 class="text-2xl font-black tracking-tight text-white flex items-center gap-2">
-          مكتب <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500">أفاق</span>
-        </h1>
-        <p class="text-[11px] text-slate-400 font-medium">للخدمات القانونية والتنفيذية وتسيير المعاملات</p>
+
+      <div class="form-group">
+        <label>اسم الأم *</label>
+        <input type="text" id="motherName" class="input-control" required placeholder="اسم الأم الثلاثي">
       </div>
+
+      <div class="form-group">
+        <label>الرقم الوطني / الرقم الشخصي</label>
+        <input type="text" id="nationalId" class="input-control" placeholder="أدخل الرقم الوطني">
+      </div>
+
+      <div class="form-group">
+        <label>رقم الهاتف / الواتساب *</label>
+        <input type="tel" id="phone" class="input-control" required placeholder="مثال: 0912345678">
+      </div>
+
+      <div class="form-group">
+        <label>مكان الإقامة الحالي</label>
+        <select id="residence" class="input-control">
+          <option value="داخل سوريا">داخل سوريا</option>
+          <option value="خارج سوريا">خارج سوريا</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>الخدمة الرئيسية *</label>
+        <select id="mainService" class="input-control" required onchange="updateSubServices()">
+          <option value="">اختر نوع الخدمة...</option>
+          <option value="معاملات تجنيس ونفوس">معاملات تجنيس ونفوس</option>
+          <option value="قضايا وعقارات">قضايا وعقارات</option>
+          <option value="توكيلات واستخراج وثائق">توكيلات واستخراج وثائق</option>
+          <option value="خدمات أخرى">خدمات أخرى</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>الخدمة الفرعية</label>
+        <select id="subService" class="input-control">
+          <option value="عام">عام / غير محدد</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>تفاصيل الطلب أو الشرح</label>
+        <textarea id="details" class="input-control" rows="3" placeholder="اكتب تفاصيل معاملتك هنا..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>مرفقات (صورة أو ملف PDF)</label>
+        <input type="file" id="fileInput" class="input-control" accept="image/*,.pdf">
+      </div>
+
+      <button type="submit" id="submit-btn" class="btn">إرسال الطلب الآن</button>
+
+      <div id="success-message" class="alert-success hidden"></div>
+    </form>
+  </div>
+
+  <!-- قسم تتبع حالة الطلب -->
+  <div id="track-request" class="tab-content hidden">
+    <div class="form-card">
+      <div class="form-group">
+        <label>أدخل رمز التتبع (رقم الطلب) أو رقم الهاتف *</label>
+        <input type="text" id="track-query" class="input-control" placeholder="مثال: AF-1024 أو 0912345678">
+      </div>
+      <button class="btn" onclick="trackStatus()">استعلام عن الطلب</button>
+
+      <div id="track-loading" class="hidden" style="text-align:center; margin-top:15px;">جاري البحث...</div>
+      <div id="track-result"></div>
     </div>
+  </div>
+
+</div>
+
+<script>
+  // رابط البرمجية الخاص بك
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGJteukHDM6wkRJiyxbJ7cQ8p-BhKPnVEjg3gyVJOxTyv6NfkD-O5NCK_9I-R5GOc3/exec";
+
+  // التبديل بين الأقسام
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     
-    <div class="flex p-1.5 bg-slate-900/80 rounded-xl border border-slate-700/50 w-full sm:w-auto shadow-inner">
-      <button id="tab-apply-btn" onclick="switchTab('apply')" class="flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 tab-active flex items-center justify-center gap-2">
-        <i data-lucide="file-plus" class="w-4 h-4"></i>
-        طلب جديد
-      </button>
-      <button id="tab-track-btn" onclick="switchTab('track')" class="flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 tab-inactive flex items-center justify-center gap-2">
-        <i data-lucide="search" class="w-4 h-4"></i>
-        تتبع معاملة
-      </button>
-    </div>
-  </header>
+    document.getElementById(tabId).classList.remove('hidden');
+    event.target.classList.add('active');
+  }
 
-  <main class="max-w-4xl w-full mx-auto p-4 flex-grow z-10 pt-40 pb-12">
+  // تحديث الخدمات الفرعية تلقائياً
+  function updateSubServices() {
+    const main = document.getElementById('mainService').value;
+    const sub = document.getElementById('subService');
+    sub.innerHTML = '';
 
-    <section id="section-apply" class="animate-fade-in">
-      <div class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-600 via-brand-400 to-brand-600"></div>
-
-        <div class="flex flex-col sm:flex-row sm:items-center gap-4 pb-8 mb-8 border-b border-slate-700/50">
-          <div class="p-3.5 bg-brand-500/10 rounded-2xl text-brand-400 border border-brand-500/20 w-fit">
-            <i data-lucide="file-text" class="w-7 h-7"></i>
-          </div>
-          <div>
-            <h2 class="text-2xl font-black text-white">تقديم طلب إلكتروني</h2>
-            <p class="text-sm text-slate-400 mt-1">يرجى تعبئة الحقول المطلوبة بدقة لضمان سرعة إنجاز معاملتك.</p>
-          </div>
-        </div>
-
-        <form id="apply-form" onsubmit="submitApplication(event)" class="space-y-8">
-          
-          <div class="space-y-5">
-            <h3 class="text-sm font-black uppercase tracking-widest text-brand-400 flex items-center gap-2">
-              <span class="w-8 h-px bg-brand-500/50"></span>
-              <i data-lucide="user" class="w-4 h-4"></i> البيانات الشخصية
-            </h3>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div class="input-group">
-                <label class="block text-sm font-semibold text-slate-300 mb-2 transition-colors">الاسم الثلاثي <span class="text-rose-400">*</span></label>
-                <div class="relative flex items-center">
-                  <i data-lucide="user-circle" class="absolute right-4 w-5 h-5 text-slate-500 transition-colors pointer-events-none"></i>
-                  <input type="text" id="fullName" required placeholder="مثال: أحمد محمد علي" class="w-full glass-input rounded-xl py-3.5 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-brand-500/80 focus:ring-4 focus:ring-brand-500/10 transition-all placeholder:text-slate-600">
-                </div>
-              </div>
-              <div class="input-group">
-                <label class="block text-sm font-semibold text-slate-300 mb-2 transition-colors">اسم الأم <span class="text-rose-400">*</span></label>
-                <div class="relative flex items-center">
-                  <i data-lucide="users" class="absolute right-4 w-5 h-5 text-slate-500 transition-colors pointer-events-none"></i>
-                  <input type="text" id="motherName" required placeholder="مثال: فاطمة" class="w-full glass-input rounded-xl py-3.5 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-brand-500/80 focus:ring-4 focus:ring-brand-500/10 transition-all placeholder:text-slate-600">
-                </div>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div class="input-group">
-                <label class="block text-sm font-semibold text-slate-300 mb-2 transition-colors">الرقم الوطني <span class="text-rose-400">*</span></label>
-                <div class="relative flex items-center">
-                  <i data-lucide="credit-card" class="absolute right-4 w-5 h-5 text-slate-500 transition-colors pointer-events-none"></i>
-                  <input type="text" id="nationalId" required maxlength="11" placeholder="01010000000" class="w-full glass-input rounded-xl py-3.5 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-brand-500/80 focus:ring-4 focus:ring-brand-500/10 transition-all tracking-widest text-left font-mono" dir="ltr">
-                </div>
-              </div>
-              <div class="input-group">
-                <label class="block text-sm font-semibold text-slate-300 mb-2 transition-colors">رقم الهاتف / واتساب <span class="text-rose-400">*</span></label>
-                <div class="relative flex items-center">
-                  <i data-lucide="phone" class="absolute right-4 w-5 h-5 text-slate-500 transition-colors pointer-events-none"></i>
-                  <input type="tel" id="phone" required placeholder="09xxxxxxxx" class="w-full glass-input rounded-xl py-3.5 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-brand-500/80 focus:ring-4 focus:ring-brand-500/10 transition-all tracking-widest text-left font-mono" dir="ltr">
-                </div>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label class="block text-sm font-semibold text-slate-300 mb-2 transition-colors">مكان الإقامة <span class="text-rose-400">*</span></label>
-              <div class="relative flex items-center">
-                <i data-lucide="map-pin" class="absolute right-4 w-5 h-5 text-slate-500 transition-colors pointer-events-none"></i>
-                <select id="residence" required class="w-full glass-input rounded-xl py-3.5 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-brand-500/80 focus:ring-4 focus:ring-brand-500/10 transition-all appearance-none cursor-pointer">
-                  <option value="داخل سوريا" class="bg-slate-900">داخل سوريا</option>
-                  <option value="خارج سوريا (مغترب)" class="bg-slate-900">خارج سوريا (مغترب)</option>
-                </select>
-                <i data-lucide="chevron-down" class="absolute left-4 w-4 h-4 text-slate-400 pointer-events-none"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="space-y-5 pt-4">
-            <h3 class="text-sm font-black uppercase tracking-widest text-brand-400 flex items-center gap-2">
-              <span class="w-8 h-px bg-brand-500/50"></span>
-              <i data-lucide="briefcase" class="w-4 h-4"></i> تفاصيل الخدمة
-            </h3>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <!-- الخدمة الرئيسية -->
-              <div class="input-group">
-                <label class="block text-sm font-semibold text-slate-300 mb-2 transition-colors">الخدمة الرئيسية <span class="text-rose-400">*</span></label>
-                <div class="relative flex items-center">
-                  <i data-lucide="layers" class="absolute right-4 w-5 h-5 text-slate-500 transition-colors pointer-events-none"></i>
-                  <select id="mainService" required onchange="updateSubServices()" class="w-full glass-input rounded-xl py-3.5 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-brand-500/80 focus:ring-4 focus:ring-brand-500/10 transition-all appearance-none cursor-pointer">
-                    <option value="" class="bg-slate-900">-- اختر الخدمة --</option>
-                    <option value="جوازات سفر" class="bg-slate-900">جوازات سفر</option>
-                    <option value="مركبات وسيارات" class="bg-slate-900">مركبات وسيارات</option>
-                    <option value="وكالات واستشارات" class="bg-slate-900">وكالات واستشارات</option>
-                    <option value="أوراق ثبوتية ونفوس" class="bg-slate-900">أوراق ثبوتية ونفوس</option>
-                  </select>
-                  <i data-lucide="chevron-down" class="absolute left-4 w-4 h-4 text-slate-400 pointer-events-none"></i>
-                </div>
-              </div>
-
-              <!-- المعاملة الفرعية (مؤتمتة وتتغير تلقائياً) -->
-              <div class="input-group">
-                <label class="block text-sm font-semibold text-slate-300 mb-2 transition-colors">نوع المعاملة الفرعية <span class="text-rose-400">*</span></label>
-                <div class="relative flex items-center">
-                  <i data-lucide="file-badge" class="absolute right-4 w-5 h-5 text-slate-500 transition-colors pointer-events-none"></i>
-                  <select id="subService" required disabled class="w-full glass-input rounded-xl py-3.5 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-brand-500/80 focus:ring-4 focus:ring-brand-500/10 transition-all appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
-                    <option value="" class="bg-slate-900">-- يرجى اختيار الخدمة الرئيسية أولاً --</option>
-                  </select>
-                  <i data-lucide="chevron-down" class="absolute left-4 w-4 h-4 text-slate-400 pointer-events-none"></i>
-                </div>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label class="block text-sm font-semibold text-slate-300 mb-2 transition-colors">تفاصيل إضافية / ملاحظات</label>
-              <div class="relative">
-                <i data-lucide="pen-line" class="absolute right-4 top-4 w-5 h-5 text-slate-500 transition-colors pointer-events-none"></i>
-                <textarea id="details" rows="3" placeholder="أدخل أية تفاصيل، أرقام لوحات، أرقام مرجعية، أو ملاحظات خاصة بالطلب..." class="w-full glass-input rounded-xl py-3.5 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-brand-500/80 focus:ring-4 focus:ring-brand-500/10 transition-all resize-none placeholder:text-slate-600"></textarea>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div class="input-group">
-                <label class="block text-sm font-semibold text-slate-300 mb-2 transition-colors">رابط الصور / الوثائق</label>
-                <div class="relative flex items-center">
-                  <i data-lucide="link" class="absolute right-4 w-5 h-5 text-slate-500 transition-colors pointer-events-none"></i>
-                  <input type="url" id="driveLink" placeholder="https://drive.google.com/..." class="w-full glass-input rounded-xl py-3.5 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-brand-500/80 focus:ring-4 focus:ring-brand-500/10 transition-all placeholder:text-slate-600 text-left" dir="ltr">
-                </div>
-              </div>
-              <div class="input-group">
-                <label class="block text-sm font-semibold text-slate-300 mb-2 transition-colors">طريقة الدفع المفضلة</label>
-                <div class="relative flex items-center">
-                  <i data-lucide="wallet" class="absolute right-4 w-5 h-5 text-slate-500 transition-colors pointer-events-none"></i>
-                  <select id="paymentMethod" class="w-full glass-input rounded-xl py-3.5 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-brand-500/80 focus:ring-4 focus:ring-brand-500/10 transition-all appearance-none cursor-pointer">
-                    <option value="شام كاش" class="bg-slate-900">شام كاش</option>
-                    <option value="سيريتل كاش" class="bg-slate-900">سيريتل كاش</option>
-                    <option value="نقدي في المكتب" class="bg-slate-900">نقدي في المكتب</option>
-                    <option value="تحويل خارجي" class="bg-slate-900">تحويل خارجي</option>
-                  </select>
-                  <i data-lucide="chevron-down" class="absolute left-4 w-4 h-4 text-slate-400 pointer-events-none"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pt-6">
-            <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-brand-600 via-brand-400 to-brand-600 bg-[length:200%_auto] hover:bg-right text-slate-950 font-black py-4.5 rounded-xl transition-all duration-500 shadow-[0_0_40px_-10px_rgba(245,158,11,0.5)] hover:shadow-[0_0_60px_-15px_rgba(245,158,11,0.7)] flex items-center justify-center gap-3 text-lg group">
-              <i data-lucide="send" class="w-6 h-6 group-hover:-translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
-              <span>إرسال الطلب واعتماد البيانات</span>
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div id="apply-result" class="hidden mt-8 animate-slide-up">
-        <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-brand-500/30 rounded-3xl text-center shadow-[0_0_50px_-10px_rgba(245,158,11,0.2)] relative overflow-hidden ticket-cut max-w-2xl mx-auto">
-          <div class="absolute top-0 w-full h-2 bg-brand-500"></div>
-          
-          <div class="p-8 pb-6 border-b border-dashed border-slate-700/70">
-            <div class="w-20 h-20 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-5 border border-emerald-500/20 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-              <i data-lucide="check-check" class="w-10 h-10"></i>
-            </div>
-            <h3 class="text-2xl font-black text-white mb-2">تم تسجيل الطلب بنجاح!</h3>
-            <p class="text-sm text-slate-400">يرجى الاحتفاظ برقم المراجعة التالي لمتابعة حالة معاملتك لاحقاً</p>
-          </div>
-          
-          <div class="p-8 pt-6 bg-slate-900/50">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-3">رقم التتبع الخاص بك</span>
-            <div class="inline-flex items-center gap-4 bg-slate-950 border border-slate-800 px-8 py-4 rounded-2xl mb-4 group cursor-pointer hover:border-brand-500/50 transition-colors" onclick="copyAppId()">
-              <span class="text-3xl font-black text-brand-400 tracking-widest font-mono" id="created-app-id">AF-1001</span>
-              <div class="p-2 bg-slate-800 rounded-lg group-hover:bg-brand-500/20 group-hover:text-brand-400 transition-colors">
-                <i data-lucide="copy" class="w-5 h-5"></i>
-              </div>
-            </div>
-            <p class="text-xs text-slate-500">يمكنك الآن الانتقال إلى قسم "تتبع معاملة" لمتابعة التحديثات</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="section-track" class="hidden animate-fade-in">
-      <div class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600"></div>
-
-        <div class="flex flex-col sm:flex-row sm:items-center gap-4 pb-8 mb-8 border-b border-slate-700/50">
-          <div class="p-3.5 bg-blue-500/10 rounded-2xl text-blue-400 border border-blue-500/20 w-fit">
-            <i data-lucide="radar" class="w-7 h-7"></i>
-          </div>
-          <div>
-            <h2 class="text-2xl font-black text-white">الاستعلام وتتبع الحالة</h2>
-            <p class="text-sm text-slate-400 mt-1">أدخل رقم الطلب الخاص بك أو رقم الهاتف المحفوظ لمعرفة آخر التطورات</p>
-          </div>
-        </div>
-        
-        <div class="flex flex-col sm:flex-row gap-4 mb-10">
-          <div class="relative flex-grow input-group">
-            <i data-lucide="search" class="absolute right-4 top-4 w-5 h-5 text-slate-500 transition-colors"></i>
-            <input type="text" id="trackQuery" placeholder="أدخل رقم الطلب (مثال: AF-1001) أو رقم الهاتف..." class="w-full glass-input rounded-xl py-4 pr-12 pl-4 text-sm text-white focus:outline-none focus:border-blue-500/80 focus:ring-4 focus:ring-blue-500/10 transition-all font-mono">
-          </div>
-          <button onclick="trackApplication()" id="track-btn" class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-10 py-4 rounded-xl font-black text-sm transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] flex items-center justify-center gap-2 whitespace-nowrap">
-            <i data-lucide="zap" class="w-5 h-5"></i>
-            <span>بحث مباشر</span>
-          </button>
-        </div>
-
-        <div id="track-results" class="space-y-5 min-h-[200px]">
-          <div class="h-full flex flex-col items-center justify-center text-slate-500 opacity-60 py-10">
-            <i data-lucide="file-search" class="w-16 h-16 mb-4 stroke-1"></i>
-            <p>النتائج ستظهر هنا بمجرد البحث</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="glass-card mt-auto border-t border-slate-800/80 py-6 text-center z-10 relative">
-    <p class="text-sm text-slate-400 font-medium flex items-center justify-center gap-2">
-      جميع الحقوق محفوظة <i data-lucide="copyright" class="w-4 h-4"></i> <span class="text-brand-400">مكتب أفاق</span> 2026
-    </p>
-  </footer>
-
-  <script>
-    lucide.createIcons();
-
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0gSLZWy9BoYTQ6y3ZR3C-6o2t-Ghxkx_shM-_FR5pwFrk2aE7IrfP5YA2Gw6yqbtj/exec";
-
-    // خريطة الخدمات الفرعية المعتمدة رسمياً لكل خدمة رئيسية
-    const officialSubServices = {
-      "جوازات سفر": [
-        "جواز سفر داخل القطر - عادي (دوري)",
-        "جواز سفر داخل القطر - مستعجل",
-        "جواز سفر داخل القطر - فوري",
-        "جواز سفر للمغتربين - عادي",
-        "جواز سفر للمغتربين - مستعجل / فوري",
-        "تجديد / تمديد جواز سفر",
-        "بدل ضائع / بدل تلف لجواز السفر"
-      ],
-      "مركبات وسيارات": [
-        "نقل ملكية مركبة (فراغ)",
-        "تجديد ترخيص مركبة",
-        "بيان قيد مركبة",
-        "براءة ذمة مرور (مخالفات)",
-        "فحص فني وتجديد رخصة سير",
-        "تبديل لوحات مركبة",
-        "ترهين / فك ترهين مركبة"
-      ],
-      "وكالات واستشارات": [
-        "وكالة خاصة (عقارية / سيارات / إدارية)",
-        "وكالة عامة",
-        "وكالة قضائية",
-        "إلغاء / عزل وكالة",
-        "تصديق وكالة (عدلية / خارجية)",
-        "استشارة قانونية / دراسة ملف"
-      ],
-      "أوراق ثبوتية ونفوس": [
-        "إخراج قيد فردي",
-        "بيان عائلي (إخراج قيد عائلي)",
-        "بيان ولادة / تسجيل مولود",
-        "بيان زواج / بيان طلاق",
-        "بيان وفاة",
-        "خلاصة سجّل عدلي (لا حكم عليه)",
-        "بطاقة شخصية (بدل ضائع / تلف / أول مرة)",
-        "سند إقامة وتصديق وثائق خارجية"
-      ]
+    const options = {
+      "معاملات تجنيس ونفوس": ["إخراج قيد", "بيان عائلي", "تثبيت زواج", "تثبيت ولادة"],
+      "قضايا وعقارات": ["تثبيت ملكية", "عقد بيع", "دعوى قضائية", "استشارة عقارية"],
+      "توكيلات واستخراج وثائق": ["وكالة عامة", "وكالة خاصة", "تصديق أوراق من الخارجية", "جواز سفر"]
     };
 
-    // دالة أتمتة تحديث المعاملة الفرعية
-    function updateSubServices() {
-      const mainService = document.getElementById('mainService').value;
-      const subServiceSelect = document.getElementById('subService');
+    const list = options[main] || ["عام"];
+    list.forEach(item => {
+      const opt = document.createElement('option');
+      opt.value = item;
+      opt.textContent = item;
+      sub.appendChild(opt);
+    });
+  }
 
-      // تفريغ القائمة الحالية
-      subServiceSelect.innerHTML = '';
+  // إرسال الطلب
+  async function submitForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const msg = document.getElementById('success-message');
+    
+    btn.disabled = true;
+    btn.textContent = "جاري إرسال الطلب...";
+    msg.classList.add('hidden');
 
-      if (mainService && officialSubServices[mainService]) {
-        subServiceSelect.disabled = false;
-        
-        // خيار افتراضي للتوجيه
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = '-- اختر المعاملة الفرعية --';
-        defaultOption.className = 'bg-slate-900';
-        subServiceSelect.appendChild(defaultOption);
+    const fileInput = document.getElementById('fileInput');
+    let fileData = null;
 
-        // إضافة الخيارات الرسمية المعتمدة
-        officialSubServices[mainService].forEach(sub => {
-          const opt = document.createElement('option');
-          opt.value = sub;
-          opt.textContent = sub;
-          opt.className = 'bg-slate-900';
-          subServiceSelect.appendChild(opt);
-        });
-      } else {
-        subServiceSelect.disabled = true;
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = '-- يرجى اختيار الخدمة الرئيسية أولاً --';
-        defaultOption.className = 'bg-slate-900';
-        subServiceSelect.appendChild(defaultOption);
-      }
-    }
-
-    function switchTab(tab) {
-      const applySection = document.getElementById('section-apply');
-      const trackSection = document.getElementById('section-track');
-      const applyBtn = document.getElementById('tab-apply-btn');
-      const trackBtn = document.getElementById('tab-track-btn');
-
-      if (tab === 'apply') {
-        applySection.classList.remove('hidden');
-        trackSection.classList.add('hidden');
-        
-        applyBtn.className = "flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 tab-active flex items-center justify-center gap-2";
-        trackBtn.className = "flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 tab-inactive flex items-center justify-center gap-2";
-      } else {
-        applySection.classList.add('hidden');
-        trackSection.classList.remove('hidden');
-        
-        trackBtn.className = "flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 tab-active flex items-center justify-center gap-2";
-        applyBtn.className = "flex-1 sm:flex-none px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 tab-inactive flex items-center justify-center gap-2";
-      }
-    }
-
-    async function submitApplication(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submit-btn');
-      const originalText = btn.innerHTML;
-      
-      btn.disabled = true;
-      btn.innerHTML = `<i data-lucide="loader-2" class="w-6 h-6 animate-spin"></i> <span>جاري المعالجة...</span>`;
-      lucide.createIcons();
-
-      const payload = {
-        fullName: document.getElementById('fullName').value,
-        motherName: document.getElementById('motherName').value,
-        nationalId: document.getElementById('nationalId').value,
-        phone: document.getElementById('phone').value,
-        residence: document.getElementById('residence').value,
-        mainService: document.getElementById('mainService').value,
-        subService: document.getElementById('subService').value,
-        details: document.getElementById('details').value,
-        driveLink: document.getElementById('driveLink').value,
-        paymentMethod: document.getElementById('paymentMethod').value
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const base64 = await toBase64(file);
+      fileData = {
+        fileName: file.name,
+        fileType: file.type,
+        base64: base64.split(',')[1]
       };
-
-      try {
-        const response = await fetch(SCRIPT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload),
-          redirect: 'follow'
-        });
-
-        const res = await response.json();
-        if (res.success) {
-          document.getElementById('apply-form').reset();
-          updateSubServices(); // إعادة ضبط قائمة الخدمات الفرعية
-          document.getElementById('created-app-id').innerText = res.appId;
-          document.getElementById('apply-result').classList.remove('hidden');
-          
-          Swal.fire({
-            icon: 'success',
-            title: 'تم الإرسال بنجاح',
-            text: 'تم استلام طلبك وسيتم معالجته قريباً.',
-            background: '#0f172a',
-            color: '#fff',
-            confirmButtonColor: '#f59e0b',
-            timer: 3000,
-            showConfirmButton: false
-          });
-
-          setTimeout(() => {
-            document.getElementById('apply-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }, 300);
-
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'عذراً، حدث خطأ',
-            text: res.error,
-            background: '#0f172a',
-            color: '#fff',
-            confirmButtonColor: '#ef4444'
-          });
-        }
-      } catch (err) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'تنبيه',
-          text: 'تم إرسال الطلب، يرجى حفظ رقم التتبع في حال تم تحديث الصفحة.',
-          background: '#0f172a',
-          color: '#fff',
-          confirmButtonColor: '#f59e0b'
-        });
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-        lucide.createIcons();
-      }
     }
 
-    async function trackApplication() {
-      const query = document.getElementById('trackQuery').value.trim();
-      const container = document.getElementById('track-results');
-      const btn = document.getElementById('track-btn');
+    const payload = {
+      fullName: document.getElementById('fullName').value,
+      motherName: document.getElementById('motherName').value,
+      nationalId: document.getElementById('nationalId').value,
+      phone: document.getElementById('phone').value,
+      residence: document.getElementById('residence').value,
+      mainService: document.getElementById('mainService').value,
+      subService: document.getElementById('subService').value,
+      details: document.getElementById('details').value,
+      fileData: fileData
+    };
 
-      if (!query) {
-        Swal.fire({
-          icon: 'info',
-          title: 'حقل فارغ',
-          text: 'يرجى كتابة رقم الطلب أو رقم الهاتف للاستعلام',
-          background: '#0f172a',
-          color: '#fff',
-          confirmButtonColor: '#3b82f6'
-        });
-        return;
-      }
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(res => {
+      btn.disabled = false;
+      btn.textContent = "إرسال الطلب الآن";
 
-      btn.disabled = true;
-      btn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> <span>جاري البحث...</span>`;
-      
-      container.innerHTML = `
-        <div class="text-center py-16 space-y-4 animate-pulse">
-          <i data-lucide="cpu" class="w-12 h-12 text-blue-500 mx-auto opacity-50"></i>
-          <p class="text-sm text-slate-400 font-medium">جاري الاتصال بقاعدة البيانات واسترجاع المعلومات...</p>
-        </div>
-      `;
-      lucide.createIcons();
-
-      try {
-        const response = await fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}`);
-        const res = await response.json();
-
-        if (res.success && res.data.length > 0) {
-          container.innerHTML = res.data.map((item, index) => `
-            <div class="bg-slate-900/60 p-6 sm:p-8 rounded-2xl border border-slate-700/50 shadow-xl relative overflow-hidden animate-slide-up" style="animation-delay: ${index * 0.1}s">
-              
-              <div class="absolute right-0 top-0 w-1.5 h-full ${getStatusColor(item.status)}"></div>
-              
-              <div class="flex flex-wrap justify-between items-start gap-4 border-b border-slate-800/80 pb-5 mb-5">
-                <div>
-                  <span class="text-xs font-bold text-slate-500 block mb-1">رقم المعاملة المرجعي</span>
-                  <span class="font-black text-white text-2xl tracking-widest font-mono">${item.appId}</span>
-                </div>
-                <div class="px-4 py-1.5 rounded-full text-sm font-bold border ${getStatusBadgeStyle(item.status)} flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-current animate-pulse"></span>
-                  ${item.status || 'قيد المعالجة'}
-                </div>
-              </div>
-              
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex items-start gap-3">
-                  <i data-lucide="user" class="w-5 h-5 text-slate-500 mt-0.5"></i>
-                  <div>
-                    <span class="text-slate-500 block text-xs font-bold mb-1">صاحب المعاملة</span>
-                    <span class="text-slate-200 font-bold">${item.fullName}</span>
-                  </div>
-                </div>
-                
-                <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex items-start gap-3">
-                  <i data-lucide="layers" class="w-5 h-5 text-slate-500 mt-0.5"></i>
-                  <div>
-                    <span class="text-slate-500 block text-xs font-bold mb-1">نوع الخدمة</span>
-                    <span class="text-slate-200 font-bold">${item.mainService} <span class="text-brand-400">(${item.subService})</span></span>
-                  </div>
-                </div>
-                
-                <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex items-start gap-3">
-                  <i data-lucide="calendar-clock" class="w-5 h-5 text-slate-500 mt-0.5"></i>
-                  <div>
-                    <span class="text-slate-500 block text-xs font-bold mb-1">تاريخ الموعد / الإنجاز</span>
-                    <span class="text-emerald-400 font-bold">${item.appointmentDate || 'يُحدد لاحقاً'}</span>
-                  </div>
-                </div>
-                
-                <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/50 flex items-start gap-3">
-                  <i data-lucide="calendar-plus" class="w-5 h-5 text-slate-500 mt-0.5"></i>
-                  <div>
-                    <span class="text-slate-500 block text-xs font-bold mb-1">تاريخ تقديم الطلب</span>
-                    <span class="text-slate-300 font-mono">${item.date || '-'}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="mt-5 bg-gradient-to-r from-slate-900 to-slate-950 p-5 rounded-xl border border-slate-800 shadow-inner">
-                <span class="text-blue-400 font-bold flex items-center gap-2 mb-2 text-sm">
-                  <i data-lucide="message-square-text" class="w-4 h-4"></i> ملاحظات المكتب / المحامي
-                </span>
-                <p class="text-slate-300 text-sm leading-relaxed">${item.lawyerNotes || 'لا توجد ملاحظات إضافية في الوقت الحالي. سيتم تحديث هذه الخانة بأي مستجدات.'}</p>
-              </div>
-            </div>
-          `).join('');
-        } else {
-          container.innerHTML = `
-            <div class="p-8 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-center animate-fade-in">
-              <i data-lucide="search-x" class="w-12 h-12 text-rose-400 mx-auto mb-3"></i>
-              <h3 class="text-rose-400 font-bold text-lg mb-1">لا توجد نتائج</h3>
-              <p class="text-rose-300/70 text-sm">${res.message || 'لم نتمكن من العثور على أية سجلات مطابقة لرقم البحث المدخل.'}</p>
-            </div>
-          `;
-        }
-      } catch (err) {
-        container.innerHTML = `
-          <div class="p-8 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-center text-rose-400">
-            <i data-lucide="wifi-off" class="w-10 h-10 mx-auto mb-2"></i>
-            <p>حدث خطأ في الاتصال بالسيرفر، يرجى المحاولة لاحقاً.</p>
-          </div>
+      if (res.success) {
+        msg.classList.remove('hidden');
+        msg.innerHTML = `
+          <h3>تم تقديم طلبك بنجاح! 🎉</h3>
+          <p style="margin-top:8px;">رمز التتبع الخاص بك هو: <strong style="font-size:18px; color:#1e293b;">${res.appId}</strong></p>
+          <p style="font-size:13px; margin-top:4px;">يرجى حفظ هذا الرقم للاستعلام عن حالة المعاملة لاحقاً.</p>
         `;
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<i data-lucide="zap" class="w-5 h-5"></i><span>بحث مباشر</span>`;
-        lucide.createIcons();
+        document.getElementById('client-form').reset();
+      } else {
+        alert("حدث خطأ أثناء تقديم الطلب، يرجى المحاولة لاحقاً.");
       }
+    })
+    .catch(err => {
+      btn.disabled = false;
+      btn.textContent = "إرسال الطلب الآن";
+      alert("تعذر الاتصال بالخادم، يرجى التحقق من الاتصال بالإنترنت.");
+    });
+  }
+
+  // تحويل الملف إلى Base64
+  const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+
+  // تتبع حالة الطلب
+  function trackStatus() {
+    const query = document.getElementById('track-query').value.trim();
+    const resultDiv = document.getElementById('track-result');
+    const loading = document.getElementById('track-loading');
+
+    if (!query) {
+      alert("يرجى إدخال رقم الطلب أو رقم الهاتف");
+      return;
     }
 
-    function getStatusColor(status) {
-      if(!status) return 'bg-brand-500';
-      if(status.includes('مكتمل') || status.includes('جاهز')) return 'bg-emerald-500';
-      if(status.includes('مرفوض') || status.includes('نقص')) return 'bg-rose-500';
-      return 'bg-brand-500';
-    }
+    resultDiv.innerHTML = '';
+    loading.classList.remove('hidden');
 
-    function getStatusBadgeStyle(status) {
-      if(!status) return 'bg-brand-500/10 text-brand-400 border-brand-500/20';
-      if(status.includes('مكتمل') || status.includes('جاهز')) return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-      if(status.includes('مرفوض') || status.includes('نقص')) return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
-      return 'bg-brand-500/10 text-brand-400 border-brand-500/20';
-    }
-
-    function copyAppId() {
-      const idText = document.getElementById('created-app-id').innerText;
-      navigator.clipboard.writeText(idText);
-      
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 2000,
-        background: '#1e293b',
-        color: '#fff',
-        timerProgressBar: true,
+    fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(res => {
+        loading.classList.add('hidden');
+        if (res.success && res.data.length > 0) {
+          res.data.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'result-card';
+            card.innerHTML = `
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <strong>رقم الطلب: ${item.appId}</strong>
+                <span class="status-badge">${item.status}</span>
+              </div>
+              <p style="font-size:14px; margin:4px 0;"><strong>صاحب الطلب:</strong> ${item.fullName}</p>
+              <p style="font-size:14px; margin:4px 0;"><strong>الخدمة:</strong> ${item.mainService} - ${item.subService}</p>
+              <p style="font-size:14px; margin:4px 0;"><strong>الموعد المتوقع:</strong> ${item.appointmentDate || 'قيد التحديد'}</p>
+              <p style="font-size:14px; margin:4px 0; color:#2563eb;"><strong>ملاحظات المكتب:</strong> ${item.lawyerNotes}</p>
+            `;
+            resultDiv.appendChild(card);
+          });
+        } else {
+          resultDiv.innerHTML = `<p style="text-align:center; color:#ef4444; margin-top:15px;">${res.message || 'لم يتم العثور على نتائج مطابقة'}</p>`;
+        }
+      })
+      .catch(err => {
+        loading.classList.add('hidden');
+        alert("حدث خطأ أثناء جلب البيانات.");
       });
+  }
+</script>
 
-      Toast.fire({
-        icon: 'success',
-        title: 'تم نسخ رقم المعاملة!'
-      });
-    }
-  </script>
 </body>
 </html>
