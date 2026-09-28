@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم المكتب - إدارة الطلبات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e293b;
+      --accent: #2563eb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --border: #e2e8f0;
+      --success: #16a34a;
+    }
+
+    * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
+    body { background-color: var(--bg); color: var(--text); padding: 15px; direction: rtl; }
+
+    .container { max-width: 900px; margin: 0 auto; }
+    
+    /* Lock Screen */
+    #login-screen {
+      background: var(--card-bg);
+      padding: 30px 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+      margin-top: 50px;
+    }
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 16px;
+      text-align: center;
+    }
+    
+    /* Header & Filters */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      background: var(--primary);
+      color: #fff;
+      padding: 15px 20px;
+      border-radius: 12px;
+    }
+    .search-box {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+
+    /* Cards for Mobile Friendly Layout */
+    .cards-list { display: grid; gap: 15px; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    .badge {
+      background: #e2e8f0;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    .card-body p { margin: 6px 0; font-size: 14px; line-height: 1.5; }
+    .card-body strong { color: var(--primary); }
+
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .btn-wa { background: #25D366; }
+    .btn-file { background: #64748b; margin-top: 5px; }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      align-items: center; justify-content: center;
+      padding: 15px;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .hidden { display: none !important; }
+    .loading { text-align: center; padding: 30px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- شاشة الدخول -->
+  <div id="login-screen">
+    <h2>لوحة تحكم المكتب</h2>
+    <p style="color: #64748b; margin: 10px 0;">أدخل رمز الدخول للمتابعة</p>
+    <input type="password" id="pin-input" class="input-field" placeholder="رمز الدخول (الافتراضي 1234)">
+    <button class="btn" onclick="checkPin()">دخول</button>
+  </div>
+
+  <!-- لوحة التحكم -->
+  <div id="dashboard" class="hidden">
+    <div class="header">
+      <h3>إدارة طلبات المعاملات</h3>
+      <button onclick="fetchData()" style="background:none; border:none; color:white; cursor:pointer;">🔄 تحديث</button>
+    </div>
+
+    <input type="text" id="search-input" class="search-box" placeholder="بحث باسم العميل، رقم الهاتف، أو رقم الطلب..." oninput="filterData()">
+
+    <div id="loading" class="loading hidden">جاري تحميل البيانات...</div>
+    <div id="cards-container" class="cards-list"></div>
+  </div>
+
+</div>
+
+<!-- نافذة التعديل -->
+<div id="edit-modal" class="modal">
+  <div class="modal-content">
+    <h3>تحديث حالة الطلب</h3>
+    <input type="hidden" id="edit-app-id">
+    
+    <label style="display:block; margin-top:10px; font-weight:bold;">حالة الطلب:</label>
+    <select id="edit-status" class="input-field" style="text-align:right;">
+      <option value="جديد - قيد التدقيق">جديد - قيد التدقيق</option>
+      <option value="قيد المعالجة والإنجاز">قيد المعالجة والإنجاز</option>
+      <option value="جاهز للتسليم">جاهز للتسليم</option>
+      <option value="تم الإنجاز والإنهاء">تم الإنجاز والإنهاء</option>      <option value="مرفوض / يتطلب مراجعة">مرفوض / يتطلب مراجعة</option>
+    </select>
+
+    <label style="display:block; margin-top:10px; font-weight:bold;">الموعد المتوقع / تاريخ الإنجاز:</label>
+    <input type="text" id="edit-date" class="input-field" placeholder="مثال: 2026/10/05 أو غداً الساعة 10 صباحاً">
+
+    <label style="display:block; margin-top:10px; font-weight:bold;">ملاحظات المكتب للعميل:</label>
+    <textarea id="edit-notes" class="input-field" style="height:80px; text-align:right;" placeholder="أدخل أي ملاحظات تظهر للعميل عند الاستعلام"></textarea>
+
+    <button class="btn" onclick="saveStatus()">حفظ والتحديث</button>
+    <button class="btn" style="background:#e2e8f0; color:#0f172a; margin-top:5px;" onclick="closeModal()">إلغاء</button>
+  </div>
+</div>
+
+<script>
+  // رابط السكربت الخاص بك
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGJteukHDM6wkRJiyxbJ7cQ8p-BhKPnVEjg3gyVJOxTyv6NfkD-O5NCK_9I-R5GOc3/exec";
+  const ADMIN_PIN = "1234"; 
+
+  let allData = [];
+
+  function checkPin() {
+    const pin = document.getElementById('pin-input').value;
+    if (pin === ADMIN_PIN) {
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      fetchData();
+    } else {
+      alert("رمز الدخول غير صحيح!");
+    }
+  }
+
+  function fetchData() {
+    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('cards-container').innerHTML = '';
+
+    fetch(`${SCRIPT_URL}?action=adminFetch`)
+      .then(res => res.json())
+      .then(res => {
+        document.getElementById('loading').classList.add('hidden');
+        if (res.success) {
+          allData = res.data;
+          renderCards(allData);
+        } else {
+          alert("فشل في جلب البيانات");
+        }
+      })
+      .catch(err => {
+        document.getElementById('loading').classList.add('hidden');
+        alert("حدث خطأ في الاتصال بالسكربت");
+      });
+  }
+
+  function renderCards(data) {
+    const container = document.getElementById('cards-container');
+    container.innerHTML = '';
+
+    if(data.length === 0) {
+      container.innerHTML = '<p style="text-align:center;">لا توجد طلبات حتى الآن</p>';
+      return;
+    }
+
+    data.forEach(item => {
+      const cleanPhone = String(item.phone).replace(/[^0-9]/g, '');
+      const waLink = `https://wa.me/${cleanPhone}`;
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-header">
+          <strong>${item.fullName || 'بدون اسم'}</strong>
+          <span class="badge">${item.status || 'جديد'}</span>
+        </div>
+        <div class="card-body">
+          <p><strong>رقم المعاملة:</strong> ${item.appId}</p>
+          <p><strong>تاريخ الطلب:</strong> ${item.date}</p>
+          <p><strong>رقم الهاتف:</strong> ${item.phone}</p>
+          <p><strong>الخدمة:</strong> ${item.mainService} - ${item.subService}</p>
+          <p><strong>التفاصيل:</strong> ${item.details || 'لا يوجد'}</p>
+          <p><strong>الموعد:</strong> ${item.appointmentDate || 'غير حدد'}</p>
+          <p><strong>ملاحظات المكتب:</strong> ${item.lawyerNotes || 'لا توجد'}</p>
+        </div>
+        
+        <button class="btn" onclick="openModal('${item.appId}', '${item.status}', '${item.appointmentDate}', '${item.lawyerNotes}')">تعديل الحالة والملاحظات</button>
+        ${item.fileUrl && item.fileUrl.startsWith('http') ? `<a href="${item.fileUrl}" target="_blank"><button class="btn btn-file">عرض المرفقات 📁</button></a>` : ''}
+        <a href="${waLink}" target="_blank"><button class="btn btn-wa">مراسلة العميل واتساب 💬</button></a>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function filterData() {
+    const q = document.getElementById('search-input').value.toLowerCase();
+    const filtered = allData.filter(item => 
+      String(item.fullName).toLowerCase().includes(q) ||
+      String(item.phone).toLowerCase().includes(q) ||
+      String(item.appId).toLowerCase().includes(q)
+    );
+    renderCards(filtered);
+  }
+
+  function openModal(appId, status, date, notes) {
+    document.getElementById('edit-app-id').value = appId;
+    document.getElementById('edit-status').value = status || 'جديد - قيد التدقيق';
+    document.getElementById('edit-date').value = date || '';
+    document.getElementById('edit-notes').value = notes || '';
+    document.getElementById('edit-modal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('edit-modal').style.display = 'none';
+  }
+
+  function saveStatus() {
+    const appId = document.getElementById('edit-app-id').value;
+    const status = document.getElementById('edit-status').value;
+    const appointmentDate = document.getElementById('edit-date').value;
+    const lawyerNotes = document.getElementById('edit-notes').value;
+
+    const payload = {
+      action: "updateStatus",
+      appId: appId,
+      status: status,
+      appointmentDate: appointmentDate,
+      lawyerNotes: lawyerNotes
+    };
+
+    closeModal();
+    document.getElementById('loading').classList.remove('hidden');
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(res => {
+      document.getElementById('loading').classList.add('hidden');
+      if (res.success) {
+        alert("تم تحديث الحالة بنجاح!");
+        fetchData();
+      } else {
+        alert("حدث خطأ أثناء التحديث");
+      }
+    })
+    .catch(err => {
+      document.getElementById('loading').classList.add('hidden');
+      alert("تعذر الاتصال بالسيرفر للتحديث");
+    });
+  }
+</script>
+
+</body>
+</html>
