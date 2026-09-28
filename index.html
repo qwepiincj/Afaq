@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>مكتب آفاق للخدمات القانونية وتسيير المعاملات</title>
-  <meta name="description" content="خدمات قانونية وتسيير كافة المعاملات والاستشارات بدقة ومهنية في عفرين وحلب وسوريا">
+  <meta name="description" content="خدمات قانونية وتسيير كافة المعاملات والاستشارات بدقة ومهنية">
 
   <link rel="icon" type="image/jpeg" href="IMG_3679.jpeg">
 
@@ -14,78 +14,90 @@
   <meta property="og:image" content="IMG_3679.jpeg">
   <meta property="og:type" content="website">
 
+  <!-- الخطوط والأيقونات -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     :root {
-      --primary: #0f172a;
-      --primary-accent: #1e3a8a;
+      --primary: #0b1329;
+      --primary-accent: #1d3557;
       --gold: #c5a059;
+      --gold-hover: #e5be75;
       --gold-dark: #9a7b3e;
-      --bg: #f8fafc;
+      --bg: #f1f5f9;
       --card-bg: #ffffff;
       --text-main: #0f172a;
       --text-muted: #64748b;
       --border: #cbd5e1;
-      --success: #16a34a;
-      --danger: #dc2626;
-      --radius: 14px;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --radius: 16px;
     }
 
     * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background-color: var(--bg); color: var(--text-main); padding: 20px 10px; direction: rtl; line-height: 1.6; }
+    body { background-color: var(--bg); color: var(--text-main); padding: 25px 12px; direction: rtl; line-height: 1.6; }
 
-    .main-wrapper { max-width: 720px; margin: 0 auto; }
+    .main-wrapper { max-width: 760px; margin: 0 auto; }
 
+    /* Header */
     .brand-header {
-      background: linear-gradient(135deg, #0b1329 0%, #1a2b4c 100%);
+      background: linear-gradient(135deg, #091222 0%, #172a4d 100%);
       color: #ffffff;
       padding: 35px 20px 25px 20px;
       border-radius: var(--radius);
       text-align: center;
       margin-bottom: 25px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
+      box-shadow: 0 12px 30px rgba(11, 19, 41, 0.25);
       border-bottom: 4px solid var(--gold);
+      position: relative;
+      overflow: hidden;
     }
     
-    .logo-wrapper { display: inline-block; margin-bottom: 15px; }
+    .logo-wrapper { display: inline-block; margin-bottom: 15px; position: relative; }
     .brand-logo {
-      width: 130px;
-      height: 130px;
+      width: 125px;
+      height: 125px;
       object-fit: cover;
-      border-radius: 18px;
+      border-radius: 20px;
       border: 3px solid var(--gold);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
     }
+    .brand-logo:hover { transform: scale(1.03); }
 
-    .brand-header h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; color: #ffffff; }
-    .brand-header p { font-size: 15px; color: #cbd5e1; font-weight: 500; }
+    .brand-header h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; color: #ffffff; letter-spacing: -0.3px; }
+    .brand-header p { font-size: 14px; color: #cbd5e1; font-weight: 500; }
+    
     .brand-header .contacts-bar {
       display: flex;
       justify-content: center;
-      gap: 15px;
-      margin-top: 15px;
+      gap: 18px;
+      margin-top: 18px;
       font-size: 13px;
       color: var(--gold);
       font-weight: 700;
       flex-wrap: wrap;
     }
+    .contacts-bar span { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.06); padding: 5px 12px; border-radius: 20px; }
 
+    /* Tabs */
     .tabs-nav {
       display: flex;
       background: #e2e8f0;
-      padding: 5px;
+      padding: 6px;
       border-radius: var(--radius);
-      margin-bottom: 20px;
-      gap: 5px;
+      margin-bottom: 25px;
+      gap: 6px;
     }
     .tab-btn {
       flex: 1;
       padding: 14px 10px;
       border: none;
       background: transparent;
-      border-radius: 10px;
+      border-radius: 12px;
       font-weight: 700;
       font-size: 15px;
       cursor: pointer;
@@ -99,34 +111,39 @@
     .tab-btn.active {
       background: #ffffff;
       color: var(--primary-accent);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     }
 
+    /* Panel Card */
     .panel-card {
       background: var(--card-bg);
       border-radius: var(--radius);
-      padding: 25px 20px;
+      padding: 30px 22px;
       border: 1px solid var(--border);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
     }
 
     .section-title {
       font-size: 18px;
       font-weight: 800;
       color: var(--primary);
-      margin-bottom: 20px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 22px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
+    /* Form Grid */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
+      gap: 16px;
     }
     .full-width { grid-column: span 2; }
 
-    @media (max-width: 600px) {
+    @media (max-width: 620px) {
       .form-grid { grid-template-columns: 1fr; }
       .full-width { grid-column: span 1; }
     }
@@ -135,190 +152,266 @@
     .form-group label {
       display: block;
       font-weight: 700;
-      font-size: 14px;
-      margin-bottom: 6px;
+      font-size: 13.5px;
+      margin-bottom: 7px;
       color: #334155;
     }
     .form-group label span.req { color: var(--danger); margin-right: 3px; }
 
+    .input-wrapper { position: relative; }
+    .input-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 14px; }
+
     .form-control {
       width: 100%;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 15px;
+      padding: 12px 14px 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 14.5px;
       background-color: #f8fafc;
       color: var(--text-main);
       outline: none;
+      transition: all 0.25s ease;
     }
+    .has-icon .form-control { padding-right: 40px; }
     .form-control:focus {
       border-color: var(--gold);
       background-color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15);
     }
-    textarea.form-control { resize: vertical; min-height: 90px; }
+    textarea.form-control { resize: vertical; min-height: 95px; }
 
+    /* Drop Zone */
     .file-drop-zone {
       border: 2px dashed var(--gold);
       background: #fdfbf7;
-      padding: 20px;
+      padding: 22px;
       text-align: center;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
+      transition: all 0.25s ease;
     }
-    .file-drop-zone p { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
+    .file-drop-zone:hover {
+      background: #fef8ed;
+      border-color: var(--gold-dark);
+    }
+    .file-drop-zone i { font-size: 28px; color: var(--gold); margin-bottom: 8px; }
+    .file-drop-zone p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 
+    /* Submit Button */
     .btn-submit {
       width: 100%;
-      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      background: linear-gradient(135deg, #1d3557 0%, #0b1329 100%);
       color: #ffffff;
       border: none;
       padding: 15px;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 16px;
       font-weight: 800;
       cursor: pointer;
       margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(29, 53, 87, 0.3);
+      transition: all 0.25s ease;
     }
-    .btn-submit:disabled { background: #94a3b8; cursor: not-allowed; }
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(29, 53, 87, 0.4);
+    }
+    .btn-submit:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; }
 
+    /* Alerts & Badges */
     .alert-box {
-      padding: 20px;
-      border-radius: 12px;
+      padding: 22px;
+      border-radius: 14px;
       margin-top: 20px;
       text-align: center;
+      animation: fadeIn 0.4s ease-in-out;
     }
     .alert-success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    
+    .app-id-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 14px 0;
+    }
     .app-id-tag {
-      display: inline-block;
       background: var(--gold);
       color: #ffffff;
-      padding: 8px 20px;
-      border-radius: 25px;
-      font-size: 20px;
+      padding: 8px 22px;
+      border-radius: 30px;
+      font-size: 22px;
       font-weight: 800;
-      margin: 12px 0;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(197, 160, 89, 0.35);
     }
+    .btn-copy {
+      background: #ffffff;
+      border: 1px solid var(--gold);
+      color: var(--gold-dark);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 13px;
+      transition: 0.2s;
+    }
+    .btn-copy:hover { background: var(--gold); color: #fff; }
 
+    /* Track Cards */
     .status-card {
       background: #ffffff;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px;
+      border-radius: 14px;
+      padding: 20px;
       margin-top: 15px;
-      position: relative;
       border-right: 6px solid var(--gold);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
     .status-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
-      padding-bottom: 8px;
+      padding-bottom: 10px;
       border-bottom: 1px solid #f1f5f9;
     }
     .status-pill {
-      padding: 4px 12px;
+      padding: 4px 14px;
       border-radius: 20px;
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 800;
       background: #fef3c7;
       color: #92400e;
     }
-    .info-row { font-size: 14px; margin-bottom: 6px; color: #334155; }
-    .info-row strong { color: var(--primary); }
+    .info-row { font-size: 14px; margin-bottom: 8px; color: #334155; }
+    .info-row strong { color: var(--primary); font-weight: 700; }
     .lawyer-note-box {
       background: #f8fafc;
       border-right: 3px solid var(--primary-accent);
-      padding: 10px 12px;
+      padding: 12px 14px;
       font-size: 13px;
-      margin-top: 10px;
+      margin-top: 12px;
+      border-radius: 0 8px 8px 0;
     }
 
+    /* Floating WhatsApp */
     .whatsapp-btn {
       position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background-color: #25d366;
+      bottom: 22px;
+      left: 22px;
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
       color: #fff;
       border-radius: 50px;
-      padding: 12px 20px;
+      padding: 12px 22px;
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+      gap: 10px;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
       text-decoration: none;
       z-index: 999;
+      transition: transform 0.25s ease;
     }
+    .whatsapp-btn:hover { transform: translateY(-3px) scale(1.02); }
 
     .footer {
       text-align: center;
-      margin-top: 30px;
-      padding: 15px 0;
+      margin-top: 35px;
+      padding: 20px 0;
       color: var(--text-muted);
       font-size: 13px;
       border-top: 1px solid #e2e8f0;
     }
 
     .hidden { display: none !important; }
-    .loader { text-align: center; padding: 20px; font-weight: bold; color: var(--text-muted); }
+    .loader { text-align: center; padding: 25px; font-weight: bold; color: var(--text-muted); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
 
 <div class="main-wrapper">
 
+  <!-- Header -->
   <header class="brand-header">
     <div class="logo-wrapper">
-      <img src="IMG_3679.jpeg" alt="مكتب آفاق للخدمات القانونية" class="brand-logo" onerror="this.src='https://via.placeholder.com/130/0f172a/c5a059?text=مكتب+آفاق'">
+      <img src="IMG_3679.jpeg" alt="مكتب آفاق للخدمات القانونية" class="brand-logo" onerror="this.src='https://via.placeholder.com/125/0b1329/c5a059?text=مكتب+آفاق'">
     </div>
     <h1>مكتب آفاق للخدمات القانونية</h1>
-    <p>خدمات قانونية وتسيير كافة المعاملات والاستشارات بدقة ومهنية</p>
+    <p>تسيير كافة المعاملات الرسمية والقضائية والاستشارات بدقة ومهنية</p>
     <div class="contacts-bar">
-      <span>📍 سوريا - دمشق</span>
-      <span>⏱️ أوقات الدوام: 9:00 ص - 5:00 م</span>
+      <span><i class="fa-solid fa-location-dot"></i> سوريا - دمشق</span>
+      <span><i class="fa-regular fa-clock"></i> الدوام: 9:00 ص - 5:00 م</span>
     </div>
   </header>
 
+  <!-- Navigation Tabs -->
   <nav class="tabs-nav">
     <button class="tab-btn active" id="btn-tab-new" onclick="switchTab('tab-new')">
-      📝 تقديم طلب جديد
+      <i class="fa-solid fa-file-signature"></i> تقديم طلب جديد
     </button>
     <button class="tab-btn" id="btn-tab-track" onclick="switchTab('tab-track')">
-      🔍 تتبع حالة معاملة
+      <i class="fa-solid fa-magnifying-glass-chart"></i> تتبع حالة معاملة
     </button>
   </nav>
 
+  <!-- Form Section -->
   <main id="tab-new" class="tab-content panel-card">
-    <div class="section-title">بيانات صاحـب المعاملة والطلب</div>
+    <div class="section-title">
+      <i class="fa-solid fa-user-pen" style="color: var(--gold);"></i> بيانات صاحب المعاملة والطلب
+    </div>
     
     <form id="main-request-form" onsubmit="handleFormSubmit(event)">
       <div class="form-grid">
         
-        <div class="form-group">
+        <div class="form-group has-icon">
           <label><span class="req">*</span>الاسم الثلاثي</label>
-          <input type="text" id="fullName" class="form-control" required placeholder="مثال: أحمد محمد العلي">
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user input-icon"></i>
+            <input type="text" id="fullName" class="form-control" required placeholder="مثال: أحمد محمد العلي">
+          </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group has-icon">
           <label><span class="req">*</span>اسم الأم الثلاثي</label>
-          <input type="text" id="motherName" class="form-control" required placeholder="مثال: فاطمة حسن الخالد">
+          <div class="input-wrapper">
+            <i class="fa-solid fa-person-breastfeeding input-icon"></i>
+            <input type="text" id="motherName" class="form-control" required placeholder="مثال: فاطمة حسن الخالد">
+          </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group has-icon">
           <label>اسم الأب</label>
-          <input type="text" id="fatherName" class="form-control" placeholder="اسم الأب الكامل">
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user-tie input-icon"></i>
+            <input type="text" id="fatherName" class="form-control" placeholder="اسم الأب الكامل">
+          </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group has-icon">
           <label>الرقم الوطني / الشخصي</label>
-          <input type="text" id="nationalId" class="form-control" placeholder="11 رقم للتسجيل الرسمي">
+          <div class="input-wrapper">
+            <i class="fa-solid fa-id-card input-icon"></i>
+            <input type="text" id="nationalId" class="form-control" placeholder="11 رقم للتسجيل الرسمي">
+          </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group has-icon">
           <label><span class="req">*</span>رقم الهاتف (الواتساب)</label>
-          <input type="tel" id="phone" class="form-control" required placeholder="مثال: 0912345678">
+          <div class="input-wrapper">
+            <i class="fa-solid fa-phone input-icon"></i>
+            <input type="tel" id="phone" class="form-control" required placeholder="مثال: 0912345678">
+          </div>
         </div>
 
         <div class="form-group">
@@ -364,54 +457,66 @@
 
         <div class="form-group full-width">
           <label>تفاصيل المعاملة أو شرح الطلب</label>
-          <textarea id="details" class="form-control" placeholder="يرجى كتابة أي معلومات إضافية لتسهيل المتابعة..."></textarea>
+          <textarea id="details" class="form-control" placeholder="يرجى كتابة أي تفاصيل إضافية مساعدة لتسريع معالجة المعاملة..."></textarea>
         </div>
 
         <div class="form-group full-width">
           <label>المرفقات والوثائق (صورة أو ملف PDF)</label>
           <div class="file-drop-zone" onclick="document.getElementById('fileInput').click()">
-            📁 اضغط هنا لإرفاق الهوية الشخصية أو المستندات المطلوبة
-            <p id="file-name-display">الملفات المسموحة: JPG, PNG, PDF (الحد الأقصى 10 ميغابايت)</p>
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <div style="font-weight: 700; color: var(--primary);">اضغط هنا لإرفاق الهوية الشخصية أو المستندات المطلوبة</div>
+            <p id="file-name-display">الصيغ المسموحة: JPG, PNG, PDF (الحد الأقصى 10 ميغابايت)</p>
           </div>
           <input type="file" id="fileInput" class="hidden" accept="image/*,.pdf" onchange="updateFileName()">
         </div>
 
       </div>
 
-      <button type="submit" id="submit-btn" class="btn-submit">تأكيد وإرسال الطلب الآن</button>
+      <button type="submit" id="submit-btn" class="btn-submit">
+        <i class="fa-solid fa-paper-plane"></i> تأكيد وإرسال الطلب الآن
+      </button>
     </form>
 
     <div id="submit-success" class="alert-box alert-success hidden"></div>
   </main>
 
+  <!-- Track Section -->
   <section id="tab-track" class="tab-content panel-card hidden">
-    <div class="section-title">تتبع حالة المعاملة برقم الطلب أو الهاتف</div>
+    <div class="section-title">
+      <i class="fa-solid fa-magnifying-glass" style="color: var(--gold);"></i> تتبع حالة المعاملة برقم الطلب أو الهاتف
+    </div>
     
     <div class="form-group">
       <label>أدخل رقم الطلب (رمز التتبع) أو رقم الهاتف المسجل</label>
       <div style="display: flex; gap: 10px;">
         <input type="text" id="track-query" class="form-control" placeholder="مثال: AF-1024 أو 0912345678">
-        <button class="btn-submit" style="width: 120px; margin-top: 0;" onclick="executeTracking()">بحث</button>
+        <button class="btn-submit" style="width: 130px; margin-top: 0;" onclick="executeTracking()">
+          <i class="fa-solid fa-search"></i> بحث
+        </button>
       </div>
     </div>
 
-    <div id="track-loader" class="loader hidden">جاري استعلام البيانات من السجل...</div>
+    <div id="track-loader" class="loader hidden">
+      <i class="fa-solid fa-spinner fa-spin"></i> جاري استعلام البيانات من السجل...
+    </div>
     <div id="track-results-container"></div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <p>جميع الحقوق محفوظة © مكتب آفاق للخدمات القانونية والتسيير</p>
   </footer>
 
 </div>
 
-<a href="https://wa.me/963912345678" target="_blank" class="whatsapp-btn" title="تواصل عبر الواتساب">
-  💬 تواصل معنا
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/963912345678" target="_blank" class="whatsapp-btn" title="تواصل مباشرة عبر الواتساب">
+  <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> تواصل معنا
 </a>
 
 <script>
-  // رابط Google Apps Script المُحدث
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkKlb0erWWgXWhvy52_eUYhG5aqj7b5CF2l5-m4M20J-6TzQDHO6_H75WB4pALe1XG/exec";
+  // رابط Google Apps Script المُحدث والنشط
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzSrebmRTAxc1-AKXbBJ0EF2GsH8W-Fe5aGyQH45oZw5EAKI5PdjEG8B-XZP90eFrD/exec";
 
   function switchTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -459,7 +564,7 @@
     const display = document.getElementById('file-name-display');
     if (fileInput.files.length > 0) {
       display.textContent = `📎 تم اختيار: ${fileInput.files[0].name}`;
-      display.style.color = "#16a34a";
+      display.style.color = "#10b981";
       display.style.fontWeight = "bold";
     }
   }
@@ -470,7 +575,7 @@
     const alertBox = document.getElementById('submit-success');
     
     btn.disabled = true;
-    btn.textContent = "جاري رفع البيانات والمرفقات...";
+    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري رفع البيانات والمرفقات...`;
     alertBox.classList.add('hidden');
 
     const fileInput = document.getElementById('fileInput');
@@ -511,18 +616,21 @@
     .then(res => res.json())
     .then(res => {
       btn.disabled = false;
-      btn.textContent = "تأكيد وإرسال الطلب الآن";
+      btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> تأكيد وإرسال الطلب الآن`;
 
       if (res.success) {
         alertBox.classList.remove('hidden');
         alertBox.innerHTML = `
-          <h3>تم استلام طلبك بنجاح! 🎉</h3>
-          <p>رمز التتبع الخاص بمعاملتك هو:</p>
-          <div class="app-id-tag">${res.appId}</div>
+          <h3 style="color: #166534;"><i class="fa-solid fa-circle-check"></i> تم استلام طلبك بنجاح!</h3>
+          <p style="margin-top: 5px;">رمز التتبع الخاص بمعاملتك هو:</p>
+          <div class="app-id-wrapper">
+            <span class="app-id-tag" id="generated-app-id">${res.appId}</span>
+            <button class="btn-copy" onclick="copyAppId('${res.appId}')"><i class="fa-regular fa-copy"></i> نسخ الرمز</button>
+          </div>
           <p style="font-size: 13px; color: #475569;">احتفظ بهذا الرقم للاستعلام عن حالة المعاملة عبر تبويب "تتبع حالة معاملة".</p>
         `;
         document.getElementById('main-request-form').reset();
-        document.getElementById('file-name-display').textContent = "الملفات المسموحة: JPG, PNG, PDF (الحد الأقصى 10 ميغابايت)";
+        document.getElementById('file-name-display').textContent = "الصيغ المسموحة: JPG, PNG, PDF (الحد الأقصى 10 ميغابايت)";
         document.getElementById('file-name-display').style.color = "#64748b";
       } else {
         alert("تعذر إرسال الطلب: " + (res.error || "خطأ غير معروف"));
@@ -530,9 +638,15 @@
     })
     .catch(err => {
       btn.disabled = false;
-      btn.textContent = "تأكيد وإرسال الطلب الآن";
+      btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> تأكيد وإرسال الطلب الآن`;
       console.error(err);
       alert("حدث خطأ أثناء التواصل مع السيرفر. يرجى إعادة المحاولة.");
+    });
+  }
+
+  function copyAppId(appId) {
+    navigator.clipboard.writeText(appId).then(() => {
+      alert("تم نسخ رمز المعاملة: " + appId);
     });
   }
 
@@ -560,27 +674,27 @@
       .then(res => res.json())
       .then(res => {
         loader.classList.add('hidden');
-        if (res.success && res.data.length > 0) {
+        if (res.success && res.data && res.data.length > 0) {
           res.data.forEach(item => {
             const card = document.createElement('div');
             card.className = 'status-card';
             card.innerHTML = `
               <div class="status-header">
-                <strong>رقم المعاملة: ${item.appId}</strong>
-                <span class="status-pill">${item.status}</span>
+                <strong><i class="fa-solid fa-folder-open" style="color: var(--gold);"></i> رقم المعاملة: ${item.appId}</strong>
+                <span class="status-pill">${item.status || 'قيد المراجعة'}</span>
               </div>
               <div class="info-row"><strong>الاسم:</strong> ${item.fullName}</div>
-              <div class="info-row"><strong>الخدمة:</strong> ${item.mainService} (${item.subService})</div>
-              <div class="info-row"><strong>الموعد المتوقع للإنجاز:</strong> ${item.appointmentDate}</div>
+              <div class="info-row"><strong>الخدمة:</strong> ${item.mainService} ${item.subService ? '(' + item.subService + ')' : ''}</div>
+              <div class="info-row"><strong>درجة الاستعجال:</strong> ${item.urgency || 'عادي'}</div>
               <div class="lawyer-note-box">
-                <strong>ملاحظات المكتب:</strong><br>
-                ${item.lawyerNotes}
+                <strong><i class="fa-solid fa-comment-dots"></i> حالة المعاملة وتفاصيل الطلب:</strong><br>
+                ${item.details || 'تم استلام الطلب وبانتظار المراجعة والبدء بالتنفيذ.'}
               </div>
             `;
             container.appendChild(card);
           });
         } else {
-          container.innerHTML = `<p style="text-align:center; color: var(--danger); padding: 20px;">${res.message || 'لم يتم العثور على نتائج مطابقة لهذا الرقم'}</p>`;
+          container.innerHTML = `<p style="text-align:center; color: var(--danger); padding: 25px; font-weight: bold;">${res.message || 'لم يتم العثور على نتائج مطابقة لهذا الرقم'}</p>`;
         }
       })
       .catch(err => {
